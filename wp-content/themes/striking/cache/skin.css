@@ -392,23 +392,3 @@ ul.mini_tabs li a.current {
 #footer input, #footer textarea, #footer .text_input, #footer .textarea {
 	color:  #ffffff;
 }
-/* Sliders */
-.anything_caption h3 {opacity:1}
-.anything_caption p {opacity:0.9}
-
-/* Home 3 column */
-.four_fifth h3 {padding-top:10px;}
-
-/* Override spacingn, same as contact info */
-#header .inner {width:85%;}
-
-/* Override icone spacing */
-.icon_text { padding: 0 0 0 25px; }
-
-/* Sidebar */
-.right_sidebar #sidebar {width:180px;}
-
-/* Content size with sidebar changed */
-.right_sidebar #main {width:750px;}
-.right_sidebar #main .content {width: 750px;}
-.right_sidebar .four_fifth {width:70%; margin-left:35px;}

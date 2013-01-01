@@ -1735,6 +1735,12 @@ a.button, a.button:hover {
 	position: relative;
 	height: 90px;
 }
+
+#header .inner
+{
+	width:1050px;
+}
+
 #top_area {
 	position: absolute;
 	right:0px;
@@ -3581,3 +3587,26 @@ a#back-to-top {
 a:hover#back-to-top {
 	background-position:bottom left;
 }
+
+
+/* Override */
+
+/* Sliders */
+.anything_caption h3 {opacity:1}
+.anything_caption p {opacity:0.9}
+
+/* Home 3 column */
+.four_fifth h3 {padding-top:10px;}
+
+
+
+/* Override icon spacing */
+.icon_text { padding: 0 0 0 25px; }
+
+/* Sidebar */
+.right_sidebar #sidebar {width:180px;}
+
+/* Content size with sidebar changed */
+.right_sidebar #main {width:750px;}
+.right_sidebar #main .content {width: 750px;}
+.right_sidebar .four_fifth {width:70%; margin-left:35px;}
