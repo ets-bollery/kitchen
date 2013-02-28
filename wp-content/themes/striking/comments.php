@@ -78,6 +78,9 @@ if ( have_comments() ) : ?>
 
 <?php if ( comments_open() ) :// Comment Form ?>
 	<?php
+	$req = get_option( 'require_name_email' );
+	$aria_req = ( $req ? " aria-required='true'" : '' );
+	$post_id = get_queried_object_id();
 	$fields =  array(
 		'author' => '<p><input type="text" name="author" class="text_input" id="author" value="'.esc_attr($comment_author).'" size="22" tabindex="1"'.$aria_req.' />' .
 		            '<label for="author">' . __('Name','striking_front') . ( $req ? '<span class="required">*</span>' : '' ).'</label></p>',
@@ -86,10 +89,11 @@ if ( have_comments() ) : ?>
 		'url'    => '<p><input type="text" name="url" class="text_input" id="url" value="'.esc_attr($comment_author_url).'" size="22" tabindex="3"'.$aria_req.' />' .
 		            '<label for="url">' . __('Website','striking_front') .'</label></p>',		      
 	);
+	$required_text = sprintf( ' ' . __('Required fields are marked %s','striking_front'), '<span class="required">*</span>' );
 	$comment_args = array(
 		'fields'               => apply_filters( 'comment_form_default_fields', $fields ),
 		'comment_field'        => '<p><textarea class="textarea" name="comment" id="comment" cols="70" rows="10" tabindex="4" aria-required="true"></textarea></p>',
-		'must_log_in'          => '<p class="must-log-in">' . sprintf( __('You must be <a href="%s">logged in</a> to post a comment.','striking_front'), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
+		'must_log_in'          => '<p class="must-log-in">' . sprintf( __('You must be <a href="%s">logged in</a> to post a comment','striking_front'), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
 		'logged_in_as'         => '<p class="logged-in-as">' . sprintf( __('Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" title="Log out of this account">Log out?</a>','striking_front'), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
 		'comment_notes_before' => '<p class="comment-notes">' . __('Your email address will not be published.','striking_front') . ( $req ? $required_text : '' ) . '</p>',
 		'comment_notes_after'  => '',

@@ -78,7 +78,7 @@ class baseOptionsGenerator {
 					echo '<optgroup label="' . $key . '">';
 					foreach($option as $k => $o) {
 						echo '<option value="' . $k . '"';
-						if ($k === $value) {
+						if ((string)$k === $value) {
 							echo ' selected="selected"';
 						}
 						echo '>' . $o . '</option>';
@@ -86,7 +86,7 @@ class baseOptionsGenerator {
 					echo "</optgroup>";
 				}else{
 					echo '<option value="' . $key . '"';
-					if ($key === $value) {
+					if ((string)$key === $value) {
 						echo ' selected="selected"';
 					}
 					echo '>' . $option . '</option>';
@@ -164,7 +164,7 @@ class baseOptionsGenerator {
 				echo '<optgroup label="' . $key . '">';
 				foreach($option as $k => $o) {
 					echo '<option value="' . $k . '"';
-					if(is_array($value) && in_array($k, $value)) {
+					if(is_array($value) && in_array((string)$k, $value)) {
 						echo ' selected="selected"';
 					}
 					echo '>' . $o . '</option>';
@@ -172,7 +172,7 @@ class baseOptionsGenerator {
 				echo "</optgroup>";
 			}else{
 				echo '<option value="' . $key . '"';
-				if(is_array($value) && in_array($key, $value)) {
+				if(is_array($value) && in_array((string)$key, $value)) {
 					echo ' selected="selected"';
 				}
 				echo '>' . $option . '</option>';
@@ -266,7 +266,7 @@ class baseOptionsGenerator {
 			
 			foreach($options as $key => $option) {
 				echo '<option value="' . $key . '"';
-				if ($selected === $key) {
+				if ($selected === (string)$key) {
 					echo ' selected="selected"';
 				}
 				echo '>' . $option . '</option>';
@@ -504,16 +504,22 @@ class baseOptionsGenerator {
 	 * displays a upload field
 	 */
 	function upload($item) {
+		if(isset($item["name"])){
+			$item['uploader_title'] = sprintf( __( 'Select Image for %s' , 'striking_admin' ), $item["name"] );
+		}
+
 		extract($this->option_atts(array(
 			"id" => "",
 			"default" => "",
 			"value" => "",
 			"imagewidth"=>'600',
-			"button" => "Insert Image",
-			'removebutton'=>'Remove Image',
+			"button" => __("Insert Image","striking_admin"),
+			'removebutton'=>__("Remove Image","striking_admin"),
+			"uploader_title" => __("Select Image","striking_admin"),
+			"uploader_button_text" => __("Select Image","striking_admin"),
 			"postid" => NULL,
 		), $item));
-		
+
 		if(is_null($postid)){
 			global $post_ID, $temp_ID;
 			$postid = (int) (0 == $post_ID ? $temp_ID : $post_ID);
@@ -550,7 +556,12 @@ class baseOptionsGenerator {
 		$value = empty($value) ? '' : htmlspecialchars($value);
 		echo '<input type="hidden" id="' . $id . '" name="' . $id . '" value="'.$value.'" class="upload-value"/>';
 		echo '<div class="theme-upload-buttons">';
-		echo '<a class="thickbox button theme-upload-button" id="' . $id . '_button" href="media-upload.php?post_id=' . $postid . '&target=' . $id . '&option_image_upload=1&TB_iframe=1&width=640&height=644">' . $button . '</a>';
+		global $wp_version;
+		if(is_shortcode_dialog() || version_compare($wp_version, "3.5", '<')){
+			echo '<a class="thickbox button theme-upload-button" id="' . $id . '_button" href="media-upload.php?post_id=' . $postid . '&target=' . $id . '&option_image_upload=1&TB_iframe=1&width=640&height=644">' . $button . '</a>';
+		} else {
+			echo '<a href="#" class="button theme-add-media-button" data-target="' .  $id  . '" data-uploader_title="'.$uploader_title.'" data-uploader_button_text="'.$uploader_button_text.'" title="' . $button . '">' .$button . '</a>';
+		}
 		echo '<a class="button theme-upload-button theme-upload-remove" id="' . $id . '_remove">' . $removebutton . '</a>';
 		echo '</div>';
 	}

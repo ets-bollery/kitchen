@@ -5,7 +5,7 @@ function theme_more_link($more_link, $more_link_text) {
 	if(theme_get_option('blog','read_more_button')){
 		$more_link='[raw]<a class="read_more_link '.apply_filters( 'theme_css_class', 'button' ).' small" href="'.get_permalink().'"><span>'.wpml_t(THEME_NAME, 'Blog Post Read More Button Text',stripslashes(theme_get_option('blog','read_more_text'))).'</span></a>[/raw]';
 	}
-	return str_replace('more-link', 'read_more_link', $more_link);
+	return '<div class="read_more_wrap">'.str_replace('more-link', 'read_more_link', $more_link).'</div>';
 }
 add_filter('the_content_more_link', 'theme_more_link', 10, 2);
 
@@ -85,7 +85,7 @@ function theme_exclude_archive_where($where,$args){
 	global $wpdb;
 
 	if(isset($args['exclude']) && !empty($args['exclude'])){
-		$where .= $wpdb->prepare(" AND ID NOT IN (SELECT DISTINCT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN ('" . join("', '", $args['exclude'] ) . "'))");
+		$where .= $wpdb->prepare(" AND ID NOT IN (SELECT DISTINCT object_id FROM {$wpdb->term_relationships} WHERE term_taxonomy_id IN ('%s'))", join("', '", $args['exclude'] ));
 	}
 	return $where;
 }
@@ -385,6 +385,9 @@ add_filter('parse_query', 'theme_search_parse_query');
 
 
 function theme_nav_menu_css_class($classes,$item){
+	if(is_home() && !is_blog() && $item->object_id == get_option( 'page_for_posts' )) {
+		$classes = array_diff($classes, array('current_page_parent'));
+	}
 	if(!is_home() && get_post_type() == 'post' && isset($item->object_id) ){
 		$blog_page = theme_get_option('blog','blog_page');
 		if(!empty($blog_page) && $item->object_id == $blog_page){

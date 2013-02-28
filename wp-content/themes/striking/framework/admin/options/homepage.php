@@ -67,7 +67,7 @@ class Theme_Options_Page_Homepage extends Theme_Options_Page_With_Tabs {
 						"desc" => __("Number of Slide items to display.",'striking_admin'),
 						"id" => "slideshow_number",
 						"min" => "0",
-						"max" => "15",
+						"max" => "20",
 						"step" => "1",
 						"default" => "0",
 						"type" => "range"

@@ -121,6 +121,13 @@ class Theme_Metabox_Portfolio extends Theme_Metabox_With_Tabs {
 				"name" => __("Portfolio General Setup",'striking_admin'),
 				"options" => array(
 					array(
+						"name" => __("Featured Image",'striking_admin'),
+						"desc" => __("Whether to dispaly Featured Image in this page. This will override the global configuration",'striking_admin'),
+						"id" => "_featured_image",
+						"default" => '',
+						"type" => "tritoggle",
+					),
+					array(
 						"name" => __("Portfolio Type",'striking_admin'),
 						"desc" => sprintf(__("%s supports image and video for demonstrating the portfolio in the Lightbox. If the type is document, the thumbnail image is link to page of portfolio",'striking_admin'),THEME_NAME),
 						"id" => "_type",

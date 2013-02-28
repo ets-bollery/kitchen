@@ -42,14 +42,16 @@ var theme;
 			var $preview_callback = eval($preview.data('callback'));
 			chosen.old_do_highlight = chosen.result_do_highlight;
 			chosen.result_do_highlight = function(el){
-				var high_id = $(el).attr("id");
-				var position = high_id.substr(high_id.lastIndexOf("_") + 1);
-				var font = chosen.results_data[position];
-				$preview_callback($preview, font);
-				$preview_name.text(font.text);
-				$preview.show();
+				if (el.length) {
+					var high_id = $(el).attr("id");
+					var position = high_id.substr(high_id.lastIndexOf("_") + 1);
+					var font = chosen.results_data[position];
+					$preview_callback($preview, font);
+					$preview_name.text(font.text);
+					$preview.show();
+				}
 
-				chosen.old_do_highlight(el);
+				return chosen.old_do_highlight(el);
 			}
 
 			
@@ -124,8 +126,6 @@ var theme;
 					$ordered.val(selected.join(','));
 					$(this).data("backupVal",current);
 				});
-
-				
 			}else{
 				$(element).chosen();
 			}
@@ -214,9 +214,48 @@ var theme;
 	};
 	
 	api.option.uploader = function(){
-		$('.theme-upload-button').each(function(){
-			
-		});	
+		if($('.theme-add-media-button').length > 0){
+			// thank to http://mikejolley.com/2012/12/using-the-new-wordpress-3-5-media-uploader-in-plugins/
+			var file_frame;
+
+			jQuery('.theme-add-media-button').on('click', function( event ){
+				var button = $(this);
+    			var target = button.data('target');
+
+    			button.blur();
+				event.preventDefault();
+
+				// If the media frame already exists, reopen it.
+				if ( file_frame ) {
+				  file_frame.open();
+				  return;
+				}
+
+				// Create the media frame.
+				file_frame = wp.media.frames.file_frame = wp.media({
+				  title: jQuery( this ).data( 'uploader_title' ),
+				  button: {
+				    text: jQuery( this ).data( 'uploader_button_text' ),
+				  },
+				  multiple: false  // Set to true to allow multiple files to be selected
+				});
+
+				file_frame.on( 'select', function() {
+					attachment = file_frame.state().get('selection').first().toJSON();
+					imagewidth = $('#'+target+'_preview').attr('data-imagewidth');
+					if(attachment.width<imagewidth){
+						imagewidth = attachment.width;
+					}
+					if($("#"+target).size()>0){
+						$("#"+target).val('{"type":"attachment_id","value":"'+attachment.id+'"}');
+						$("#"+target+"_preview").html('<a class="thickbox" href="'+attachment.url+'?"><img  width="'+imagewidth+'" src="'+attachment.url+'"/></a>');
+					}
+				});
+
+				file_frame.open();
+			});
+		}
+		
 		$(".theme-upload-remove").click(function(){
 			$content = $(this).parent().parent();
 			$content.find('.upload-value').val('');
@@ -364,11 +403,6 @@ var theme;
 			$(this).parent().siblings('.description').toggle();
 			event.preventDefault();
 		});
-
-		$('').click(function(event){
-			$(this).parent().siblings('.description').toggle();
-			event.preventDefault();
-		});
 	};
 
 	api.option.getVal = function(name){
@@ -404,7 +438,13 @@ var theme;
 					callback.call(element);
 				});
 			}else{
-				callback.call(element);
+				if($element.parents('.postbox').is('.closed')){
+					$element.parents('.postbox').children('.hndle,.handlediv').bind('clickoutside',function(e){
+						callback.call(element);
+					});
+				}else{
+					callback.call(element);
+				}
 			}
 		}else if($element.parents('.theme-page-container').is('.with-tabs')){
 			if(!$element.parents('.theme-page-pane').hasClass('active')){

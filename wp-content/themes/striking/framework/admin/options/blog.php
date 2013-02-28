@@ -336,14 +336,14 @@ class Theme_Options_Page_Blog extends Theme_Options_Page_With_Tabs {
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Display as button",'striking_admin'),
+						"name" => __("Display Read More as button",'striking_admin'),
 						"desc" => "",
 						"id" => "read_more_button",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Text",'striking_admin'),
+						"name" => __("Read More Text",'striking_admin'),
 						"id" => "read_more_text",
 						"default" => __("Read more &raquo;",'striking_front'),
 						"type" => "text",

@@ -14,41 +14,43 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 				"name" => __("General",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("Use Timthumb",'striking_admin'),
+						"name" => __("Use Timthumb - IMPORTANT NOTES IN HELP FIELD",'striking_admin'),
+						'desc'=>__('<p>Striking no longer needs Timthumb for image resizing as Striking has adopted the core of the WP default image resizing scripts for displaying resized images such as the thumbnails that appear in a widget, and other resizing situations.&nbsp;&nbsp; As of Striking 5.1 series users should toggle this setting <em>OFF</EM>, and toggle the Clear Cache setting below <em>ON</EM> (see help field for that setting about behavior) and then save this Striking Advanced Panel.&nbsp;&nbsp;Subsequently one will never use Timthumb again in Striking.</p><p>Anytime one encounters a situation after an upgrade in which featured and slide images are not showing, one should always remember to visit the Striking Advanced Panel, confirm Timthumb remains <em>OFF</EM> and always clear the cache after every upgrade.</p>','striking_admin'),	
 						"id" => "timthumb",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Clear Cache",'striking_admin'),
+						"name" => __("Clear Cache - VERY IMPORTANT SETTING AFTER UPDATES AND UPGRADES!",'striking_admin'),
+						'desc'=>__('<p>Striking creates multiple images for use in different resizing situations every time one loads new imagery, and it also creates a temporary ongoing file which stores all the striking settings for use on the fly for page transitions (it also creates a permanent file of those settings as well, found below in the <b>Import & Export</b> field so you can export the settings for backup purposes).&nbsp;&nbsp; After each update of Striking one should come to this setting and and toggle it <em>ON</EM> and then save this Striking Advanced Panel. &nbsp;&nbsp;Subsequently one should go to any of the skin panels such as the Color or Font Panel and save it again to rewrite the temporary skin file of settings for the on-the-fly use.</p><p>Anytime one encounters a situation after an upgrade in which featured and slide images are not showing, one should always remember to visit the Striking Advanced Panel, confirm Timthumb remains <em>OFF</EM> and always clear the Striking cache.</p><p>NOTE: &nbsp;&nbsp;After saving this Advanced Panel this setting will revert to the off status again - but as long as one toggled on prior to saving the panel it will have performed the task of flushing the image cache and temporary skin settings.</p>','striking_admin'),
 						"id" => "clear_cache",
 						"default" => false,
 						"process" => "_option_clear_cache_process",
 						"type" => "toggle"
 					),
 					array(
-						'name' => __("Use Complex CSS Class",'striking_admin'),
-						'desc'=>__('It will add pre text (<code>theme_</code>) to the classes to avoid class name conflict: <code>button, code, pre, tabs, mini_tabs, pane, panes, tab, accordion, info, success, error, error_msg, notice, note, note_title, note_content</code>. <br>For example: <code>button</code> become <code>theme_button</code>.','striking_front'),
+						'name' => __("Use Complex CSS Class - FOR WOO-COMMERCE PLUGIN USERS",'striking_admin'),
+						'desc'=>__('<p>The purpose of this setting is to activate an alternative css file called screen_complex.css (found in the CSS folder) in Striking that amends the Striking theme classes to avoid class name conflict with Woo-Commerce as that plugin uses css classes that are traditionally used for theme builders, in their plugin.</p><p>The css classes covered include <code>button, code, pre, tabs, mini_tabs, pane, panes, tab, accordion, info, success, error, error_msg, notice, note, note_title, note_content</code> and each class is pre-pended with <em>theme</em> in order to amend the class name.&nbsp;&nbsp; <br>For example: <code>button</code> become <code>theme_button</code>.</p><p>This is the only purpose of this setting although Striking users have also indicated that in rare situations where another plugin is encroaching on traditional theme classes this setting has helped alleviate them.</p><p>Anytime one is using a more advanced plugin that includes many css settings for active styling, such as an ecommerce plugin, it is always a good idea to do a quick review of the css of both the theme and the plugin to see if the latter encroaches on theme css.&nbsp;&nbsp;One has always to remember that almost all plugins are designed for the default WP themes shipped with the wordpress core, which contain minimal css classes, not premium themes as robust as Striking, which contain much more advanced css, and so the potential for css (and js conflict if diff js and jquery versions are in use) becomes much greater.&nbsp;&nbsp;Striking is the framework to which the plugin is attempting to fit, so it is incumbent upon the plugin developer to write clean non-conflicting code, not the theme.&nbsp;&nbsp;Nonetheless, Striking goes the extra distance to try and bridge situations where this is not the case, and this setting is one such example.</p>','striking_admin'),
 						"id" => "complex_class",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Disable Colorbox",'striking_admin'),
-						"desc" => __("If you enable this option, the lightbox will not show. You should use your custom scripts.",'striking_admin'),
+						"name" => __("Disable Striking Lightbox Script - aka Colorbox",'striking_admin'),
+						"desc" => __("<p>If you enable this option, the lightbox script in Striking - known as Colorbox, will be disabled and the default lightbox functions in Striking will not work.&nbsp;&nbsp;Normally, this setting would be used by someone either using an alternative lightbox plugin and experiencing some lightbox script conflicts or through use of a child theme with custom php or lightbox scripts.</p><p>If examining a plugin for lightbox ability, check to see what lightbox script it is using - many use colorbox, and Striking already incorporates almost every single colorbox option and ability, so the plugin will likely not provide any benefit, other then the potential for conflict due to duplicate scripts attempting to operate when a function is called</p>.",'striking_admin'),
 						"id" => "no_colorbox",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Restrict Colorbox Dimension",'striking_admin'),
-						"desc" => __("If you enable this option, the lightbox dimension will be restricted to fit the browse screen size.",'striking_admin'),
+						"name" => __("Global Enable or Disable Lightbox Image Restriction - NEW Ver 5.1.9",'striking_admin'),
+						"desc" => __("<p>This feature, also found in all individual image settings, allows one to turn on or off the lightbox restriction which previously confined any lightbox image to a frame inside the url window. &nbsp;&nbsp;The ability to remove the lightbox restriction significantly enhances the image display abilities of Striking - now if one wants to display an image at its full size resolution whatever that may be, one can.&nbsp;&nbsp;This ability has great potential to enhance all portfolio displays, all in-page image galleries, and much more.</p><p>The purpose of this global setting is to enable or disable the lightbox restriction site wide.&nbsp;&nbsp;Whichever setting chosen, all the image functions in Striking also contain a toggle for override to the opposite setting for individual circumstances.&nbsp;&nbsp;Thus one should use this global setting to institute the prevalent lightbox image condition they desire for display, and use the individual setting only when they want to counter the global setting.</p>",'striking_admin'),
 						"id" => "restrict_colorbox",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Shortcode Support in Comment",'striking_admin'),
+						"name" => __("Allow Shortcode Support in Comment Fields",'striking_admin'),
 						"id" => "shortcode_comment",
 						"default" => false,
 						"type" => "toggle"
@@ -60,16 +62,16 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Show featured image on feeds",'striking_admin'),
+						"name" => __("Show Featured Image on Feeds",'striking_admin'),
 						"id" => "show_post_thumbnail_on_feed",
 						"default" => false,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Reset Theme Options",'striking_admin'),
+						"name" => __("Reset a Theme Panel to Default",'striking_admin'),
 						"id" => "rest",
 						"default" => array(),
-						"desc" => __('If you want reset your theme options to defualt, please checked the items below.','striking_admin'),
+						"desc" => __('If you want reset a theme option to default, please checked the item below and save.&nbsp;&nbsp; One can reset any number at once.','striking_admin'),
 						"options" => array(
 							"general" => __('General','striking_admin'),
 							"background" => __('Background','striking_admin'),
@@ -117,16 +119,13 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 			),
 			array(
 				"slug" => 'optimizer',
-				"name" => __("JavaScript & CSS Optimizer",'striking_admin'),
+				"name" => __("JavaScript & CSS Optimizer Options",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("Combine Js",'striking_admin'),
-						"id" => "combine_js",
-						"default" => false,
-						"type" => "toggle"
-					),
-					array(
-						"name" => __("Combine CSS",'striking_admin'),
+						"name" => __("General Info, and Combine CSS setting",'striking_admin'),
+						"desc" => __('<p>Striking has the three options seen in this tab for assisting in optimizing page loading.&nbsp;&nbsp; However, one should exercise great caution in using these settings when one has many js and css heavy plugins running with Striking, and each function should be carefully tested for compliance in such situations.&nbsp;&nbsp;These settings were primarily designed to work with Striking and WP together with some simple addons, assisting the basic site user who did not want to try to navigate the complexities of an independent caching or optimizing plugin.</p><p><b>WARNING - never use these functions if one is also running an optimizing plugin such as W3Total Cache!</b></p>
+<p>RECOMMENDATION - Striking recommends that prior to commencing any theme update, one turn off (and save this Panel after toggling off!) all optimizing settings.</p>
+<p>USAGE - One should commence with using only one of the two simpler settings - Combine CSS, or Move JS to Bottom (try this first), and after activating, do a thorough test of the site, viewing all pages and portfolios, and testing functions such as the contact form, opening lightboxes, viewing portfolio and image galleries, testing gmaps, iframes, sliders and videos.&nbsp;&nbsp;Remember to test in all browsers, and it is a good idea to do so from more then one machine, as well as making certain one has performed a hard refresh of your local computer cache.&nbsp;&nbsp;One should attempt to discern if the setting has impacted site performance, and firebug can be a useful tool for this purpose.</p><p>If all seems good after activation and thorough testing of the first setting activated, then it may be appropriate to proceed with the other of the two initial optimizing settings.&nbsp;&nbsp;Caution and extensive testing, and a resting period where one runs the site for a period of time with the settings active, is warranted before attempting the <b>Combine JS</b> setting.</p>','striking_admin'),
 						"id" => "combine_css",
 						"default" => false,
 						"type" => "toggle"
@@ -134,6 +133,12 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					array(
 						"name" => __("Move Js To Bottom",'striking_admin'),
 						"id" => "move_bottom",
+						"default" => false,
+						"type" => "toggle"
+					),
+					array(
+						"name" => __("Combine Js",'striking_admin'),
+						"id" => "combine_js",
 						"default" => false,
 						"type" => "toggle"
 					),
@@ -163,7 +168,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 			),
 			array(
 				"slug" => 'import_export',
-				"name" => __("Import & Export",'striking_admin'),
+				"name" => __("Save or Import Theme Settings",'striking_admin'),
 				"options" => array(
 					array(
 						"name" => sprintf(__("Import %s Options Data",'striking_admin'),THEME_NAME),
@@ -190,7 +195,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					array(
 						"name" => __("WooCommerce",'striking_admin'),
 						"id" => "woocommerce",
-						"desc"=>__("Please scroll to the top of the page to enable 'Use Complex CSS Class' option if you enable this.",'striking_front'),
+						"desc"=>__("Please scroll to the top of the page to enable 'Use Complex CSS Class' option if you enable this.",'striking_admin'),
 						"process" =>"_option_woocommerce_process",
 						"default" => false,
 						"type" => "toggle"
@@ -228,7 +233,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					),
 					array(
 						"name" => __("WooCommerce Product Category Sidebar",'striking_admin'),
-						"desc" => __("Select the custom sidebar that you'd like to be displayed on Product Category page.",'striking_front'),
+						"desc" => __("Select the custom sidebar that you'd like to be displayed on Product Category page.",'striking_admin'),
 						"id" => "woocommerce_cat_sidebar",
 						"prompt" => __("Choose one..",'striking_admin'),
 						"default" => '',
@@ -237,7 +242,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					),
 					array(
 						"name" => __("WooCommerce Product Tag Sidebar",'striking_admin'),
-						"desc" => __("Select the custom sidebar that you'd like to be displayed on Product Tag page.",'striking_front'),
+						"desc" => __("Select the custom sidebar that you'd like to be displayed on Product Tag page.",'striking_admin'),
 						"id" => "woocommerce_tag_sidebar",
 						"prompt" => __("Choose one..",'striking_admin'),
 						"default" => '',
@@ -248,13 +253,13 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 			),
 			array(
 				"slug" => 'header_text',
-				"name" => __("Featured Header Text",'striking_admin'),
+				"name" => __("Archive Title Settings",'striking_admin'),
 				"options" => array(
 					array(
 						"name" => __("Category Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "category_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -262,7 +267,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Category Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Category Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the category name.',
 						"id" => "category_text",
-						"default" => __('Category Archive for: ‘%s’','striking_front'),
+						"default" => __('Category Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -270,7 +275,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Tag Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "tag_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -278,7 +283,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Tag Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Tag Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the tag name.',
 						"id" => "tag_text",
-						"default" => __('Tag Archive for: ‘%s’','striking_front'),
+						"default" => __('Tag Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -286,7 +291,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Daily Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "daily_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -294,7 +299,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Daily Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Daily Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the day number.',
 						"id" => "daily_text",
-						"default" => __('Daily Archive for: ‘%s’','striking_front'),
+						"default" => __('Daily Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -302,7 +307,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Monthly Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "monthly_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -310,7 +315,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Monthly Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Monthly Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the month number.',
 						"id" => "monthly_text",
-						"default" => __('Monthly Archive for: ‘%s’','striking_front'),
+						"default" => __('Monthly Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -318,7 +323,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Weekly Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "weekly_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -326,7 +331,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Weekly Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Weekly Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the year number.',
 						"id" => "weekly_text",
-						"default" => __('Weekly Archive for: ‘%s’','striking_front'),
+						"default" => __('Weekly Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -334,7 +339,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Yearly Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "yearly_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -342,7 +347,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Yearly Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Yearly Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the year number.',
 						"id" => "yearly_text",
-						"default" => __('Yearly Archive for: ‘%s’','striking_front'),
+						"default" => __('Yearly Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -350,7 +355,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Author Archive Title",'striking_admin'),
 						"desc" => '',
 						"id" => "author_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -358,7 +363,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Author Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Author Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the author name.',
 						"id" => "author_text",
-						"default" => __('Author Archive for: ‘%s’','striking_front'),
+						"default" => __('Author Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -366,7 +371,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Blog Archives Title",'striking_admin'),
 						"desc" => '',
 						"id" => "blog_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -374,7 +379,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Blog Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Blog Archives</code>',
 						"id" => "blog_text",
-						"default" => __('Blog Archives','striking_front'),
+						"default" => __('Blog Archives','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -382,7 +387,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Taxonomy Archives Title",'striking_admin'),
 						"desc" => '',
 						"id" => "taxonomy_title",
-						"default" => __('Archives','striking_front'),
+						"default" => __('Archives','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -390,7 +395,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Taxonomy Archive Text",'striking_admin'),
 						"desc" => 'Default: <code>Archive for: ‘%s’</code><br> <code>%s</code> will be replaced with the taxonomy name.',
 						"id" => "taxonomy_text",
-						"default" => __('Archive for: ‘%s’','striking_front'),
+						"default" => __('Archive for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -398,14 +403,14 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("404 Page Title",'striking_admin'),
 						"desc" => '',
 						"id" => "404_title",
-						"default" => __('404 - Not Found','striking_front'),
+						"default" => __('404 - Not Found','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
 					array(
 						"name" => __("404 Page Text",'striking_admin'),
 						"id" => "404_text",
-						"default" => __("Looks like the page you're looking for isn't here anymore. Try using the search box or sitemap below.",'striking_front'),
+						"default" => __("Looks like the page you're looking for isn't here anymore. Try using the search box or sitemap below.",'striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -413,7 +418,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Search Page Title",'striking_admin'),
 						"desc" => '',
 						"id" => "search_title",
-						"default" => __('Search','striking_front'),
+						"default" => __('Search','striking_admin'),
 						"size" => 50,
 						"type" => "text"
 					),
@@ -421,7 +426,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 						"name" => __("Search Page Text",'striking_admin'),
 						"desc" => 'Default: <code>Search Results for: ‘%s’</code><br> <code>%s</code> will be replaced with the search text.',
 						"id" => "search_text",
-						"default" => __('Search Results for: ‘%s’','striking_front'),
+						"default" => __('Search Results for: ‘%s’','striking_admin'),
 						'rows' => '2',
 						"type" => "textarea"
 					),
@@ -440,6 +445,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 				}
 				if(!empty($archives)){
 					$tab = array(
+						"slug" => "custom_header_text",
 						"name" => "Custom Post Type Archive Featured Header Text",
 						"options" => array(),
 					);
@@ -449,7 +455,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 								"name" => sprintf(__("%s Archives Title",'striking_admin'),$archive->name),
 								"desc" => '',
 								"id" => "archive_".$archive->name."_title",
-								"default" => __('Archives','striking_front'),
+								"default" => __('Archives','striking_admin'),
 								"size" => 50,
 								"type" => "text"
 							);
@@ -457,7 +463,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 								"name" => sprintf(__("%s Archives Text",'striking_admin'),$archive->name),
 								"desc" => 'Default: <code>Archives for: ‘%s’</code><br> <code>%s</code> will be replaced with the post type name.',
 								"id" => "archive_".$archive->name."_text",
-								"default" => __('Archives for: ‘%s’','striking_front'),
+								"default" => __('Archives for: ‘%s’','striking_admin'),
 								'rows' => '2',
 								"type" => "textarea"
 							);
@@ -474,6 +480,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 		),'objects'); 
 		if ($taxonomies && !empty($taxonomies)) {
 			$tab = array(
+				"slug" => "custom_tax_header_text",
 				"name" => "Custom Taxonomy Featured Header Text",
 				"options" => array(),
 			);
@@ -482,7 +489,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					"name" => sprintf(__("%s Archives Title",'striking_admin'),$taxonomy->name),
 					"desc" => '',
 					"id" => "taxonomy_".$taxonomy->name."_title",
-					"default" => __('Archives','striking_front'),
+					"default" => __('Archives','striking_admin'),
 					"size" => 50,
 					"type" => "text"
 				);
@@ -490,7 +497,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					"name" => sprintf(__("%s Archives Text",'striking_admin'),$taxonomy->name),
 					"desc" => 'Default: <code>Archives for: ‘%s’</code><br> <code>%s</code> will be replaced with the taxonomy name.',
 					"id" => "taxonomy_".$taxonomy->name."_text",
-					"default" => __('Archives for: ‘%s’','striking_front'),
+					"default" => __('Archives for: ‘%s’','striking_admin'),
 					'rows' => '2',
 					"type" => "textarea"
 				);
@@ -530,12 +537,13 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 		$options = array_merge($options , array(
 			array(
 				"slug" => 'update',
-				"name" => __("Update Theme",'striking_admin'),
+				"name" => __("Update Your Striking Theme",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("Item Purchase Code",'striking_admin'),
+						"name" => __("Usage and Item Purchase Code",'striking_admin'),
 						"id" => "item_purchase_code",
-						'desc' => 'It will use for verifying the purchase before update. (how to <a href="http://kaptinlin.com/support/page/get_code.html" target="_blank">get it</a>)',
+						'desc' => __('<p>Striking includes an internal update ability.&nbsp;&nbsp;Instead of having to visit Themforest to download the latest update and install by ftp, one can usually use this internal updating function to update when a notice has appeared in the Dashboard that a new build is available.&nbsp;&nbsp;</p><p>It is a two step process ot updating:</p>
+<p>Step 1 - Enter your Item Purchase code into this field, and then save this panel.  DO NOT attempt to update without first having saved after completing the purchase code field.&nbsp;&nbsp;If you enter your purchase code and then skip saving the update will fail, and possibly crash your site!!&nbsp;&nbsp;So enter, save, and then proceed to the <b>Update</b> setting below.&nbsp;&nbsp; The license purchase code is found in the license certificate which accompanys your purchase and this link shows one where to <a href="http://kaptinlin.com/support/page/get_code.html" target="_blank">obtain the license certificate</a> in your Themeforest account.</p><p>Step 2 is to go to the <b>Update</b> setting below and trigger the update.</p><p>IMPORTANT!! - Accompanying every build release is a new thread at the Striking Support forum advising on any special procedures for updating and you should review it carefully and completely.</p><p><b>CHILD THEME USERS CANNOT UPDATE USING THIS SETTING AND MUST REVIEW THE CORRECT PROCEDURES AT THE FORUM FOR UPDATING - UPDATING SHOULD BE DONE BY FTP USING THE DOWNLOAD FROM THEMEFOREST, AND ALSO INCLUDE INSTITUTING THE LATEST CHILD VERSION.  FAILURE BY A CHILD USER TO FOLLOW THE CORRECT PROCEDURES WILL LIKELY CRASH THE SITE, MAKE THE ADMIN INACCESSIBLE, AND POSSIBLY REQUIRE RESTORATION FROM A BACKUP.</b></p><p>Only experienced professionals should use the default Child theme in most circumstances, and <u>any help required by the Striking Team for a site rescue will have an accompanying charge of no less then 250USD, paid in advance.</u>&nbsp;&nbsp;If one had a site created by a professional, check with them to determine if they used the child theme and if in doubt, contact Striking support for assistance prior to attempting to update.</p>','striking_admin'),
 						"default" => '',
 						"size" => 50,
 						"type" => "text"
@@ -549,7 +557,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 					array(
 						"name" => __("Update",'striking_admin'),
 						"id" => "updating_theme",
-						"desc" =>  __("Updating Theme to the latest version.",'striking_admin'),
+						"desc" => __('<p>Use this setting to commence updating Striking to the latest version. &nbsp;&nbsp;One will also see the option to review the build features and code changes, file additions, and deletions, and also download the build so that one has a backup copy of it saved.</p><p>WHAT TO DO IF UPDATE FAILS - for a variety of reasons the update may fail.&nbsp;&nbsp;Most often it turns out that the web host has security permissions in place that prevent the Striking update api from connecting and loading the update.&nbsp;&nbsp;Some users have security measures from security plugins, or modifications in the .htaccess file, which have a similar affect.&nbsp;&nbsp;If the internal update does not work then one can simply update by ftp - it will take 5 minutes longer, but is the traditional method of updating up until recently in any case and is the default fallback method for updating.when the internal function does not work.</p>','striking_admin'),	
 						"default" => false,
 						"function" => "_option_update_theme_function",
 						"type" => "custom"
@@ -613,7 +621,7 @@ class Theme_Options_Page_Advanced extends Theme_Options_Page_With_Tabs {
 	</script>
 HTML;
 		} else {
-			$url = admin_url( 'admin.php?page=theme_advanced&check=true#update');
+			$url = admin_url( 'admin.php?page=theme_advanced&tab=update&check=true#update');
 			echo  <<<HTML
 You are using the latest version. 
 	<a class="button" href="{$url}">Check for updates</a>
@@ -623,6 +631,7 @@ HTML;
 	}
 	function _option_clear_cache_process($option,$data) {
 		if($data == true){
+			theme_check_image_folder();
 			if(WP_Filesystem(array('method'=>'direct'))){
 				$whitelist = array(
 					'index.html',

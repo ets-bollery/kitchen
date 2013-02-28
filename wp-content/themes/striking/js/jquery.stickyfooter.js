@@ -38,11 +38,9 @@ $.stickyfooter = function (element, options) {
 			
 			$window.bind('resize.stickyfooter', function () {
 					setFooterPosition();
-					console.info('resize');
 			});
 			$('#page').bind('heightchange',function(){
 				setFooterPosition();
-				console.info('heightchange');
 			});
 			setFooterPosition();
 		}

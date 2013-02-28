@@ -29,6 +29,7 @@ function theme_shortcode_blog($atts, $content = null, $code) {
 		'divider_color' =>'',
 		'read_more' => 'default',
 		'read_more_text' => '',
+		'read_more_button' => 'default',
 		'category__and' =>'',
 		'category__not_in' => '',
 	), $atts));
@@ -92,6 +93,14 @@ function theme_shortcode_blog($atts, $content = null, $code) {
 	}else{
 		$read_more = false;
 	}
+	if($read_more_button == 'default'){
+		$read_more_button =  theme_get_option('blog','read_more_button');
+	}elseif($read_more_button == 'true'){
+		$read_more_button = true;
+	}else{
+		$read_more_button = false;
+	}
+
 
 	if($effect == 'default'){
 		$effect = theme_get_option('blog','effect');
@@ -126,6 +135,7 @@ function theme_shortcode_blog($atts, $content = null, $code) {
 		'frame_borderthickness' => $frame_borderthickness,
 		'read_more'=>$read_more,
 		'read_more_text'=>$read_more_text,
+		'read_more_button' =>$read_more_button,
 		'effect' => $effect,
 	);
 	
@@ -272,15 +282,15 @@ function theme_shortcode_blog_column_posts(&$r, $atts, $current) {
 					$content = apply_filters('the_excerpt', $content);
 					$output .= '<div>'.$content.'</div>';
 					
-					$output .= '<div>';
 					if($read_more){
-						if(theme_get_option('blog','read_more_button')){
+						$output .= '<div class="read_more_wrap">';
+						if($read_more_button){
 							$output .= '<a class="read_more_link '.apply_filters( 'theme_css_class', 'button' ).' small" href="'.get_permalink().'" rel="nofollow"><span>'.$read_more_text.'</span></a>';
 						}else{
 							$output .= '<a class="read_more_link" href="'.get_permalink().'" rel="nofollow">'.$read_more_text.'</a>';
 						}
+						$output .= '</div>';
 					}
-					$output .= '</div>';
 				}
 				$output .= '</div>';
 			}

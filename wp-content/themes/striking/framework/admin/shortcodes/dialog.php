@@ -12,6 +12,7 @@ isRtl = <?php echo (int) is_rtl(); ?>;
 //]]>
 </script>
 <?php
+
 do_action('admin_enqueue_scripts');
 do_action('admin_print_styles');
 do_action('admin_print_scripts');

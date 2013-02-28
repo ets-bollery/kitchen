@@ -46,18 +46,9 @@ jQuery(document).ready(function() {
 				delay:slideShow['delay'],
 				resumeDelay:slideShow['resumeDelay'],
 				animationTime:slideShow['animationTime'],
-				
-				// Callbacks
-				onSlideInit:function(){
-					base = slider.data('AnythingSlider');
-					if(base.$currentPage.hasClass('stoped')){
-						base.startStop(false);
-					}else{
-						base.startStop(base.options.autoPlay);
-					}
-				},
 				// Video
 				resumeOnVideoEnd:slideShow['resumeOnVideoEnd'],
+				resumeOnVisible:slideShow['resumeOnVisible'],
 				addWmodeToObject: 'transparent'
 			});
 			if(slider.find('.video_frame video')){
@@ -65,12 +56,6 @@ jQuery(document).ready(function() {
 					jQuery('.video_frame video').mediaelementplayer();
 				}
 			}
-			if(slider.find('li.panel:eq(1)').hasClass('stoped')){
-				slider.data('AnythingSlider').startStop(false);
-			}
-			slider.find('li.panel.click_stoped').click(function(){
-				slider.data('AnythingSlider').startStop(false);
-			});
 			
 			slider.find('.anything_caption').css({ opacity: slideShow['captionOpacity'] });		
 			jQuery('#anything_slider').anythingSliderVideo();

@@ -72,7 +72,7 @@ var cufon_list = {
 	{$cufon_string}
 };
 var fontface_used_url_list = {$fontface_used_url_list};
-
+var gfont_used_list = {$gfont_used_list};
 jQuery(document).ready(function($) {
 	jQuery.each(fontface_used_url_list,function(i,url){
 		var wf = document.createElement("link");
@@ -83,12 +83,15 @@ jQuery(document).ready(function($) {
 		var s = document.getElementsByTagName("style")[0];
 		s.parentNode.insertBefore(wf, s);
 	});
-	WebFont.load({
-		google: {
-			families: {$gfont_used_list}
-		}
-	});
-
+	
+	if(gfont_used_list.length != 0){
+		WebFont.load({
+			google: {
+				families: gfont_used_list
+			}
+		});
+	}
+	
 	jQuery('.toggle-default').live('change',function(){
 		if(jQuery(this).is(':checked')){
 			jQuery(this).closest('li').siblings().find('input:checked').attr('checked', false).trigger('change');
@@ -109,8 +112,8 @@ SCRIPTS;
 				"name" => __("General Settings",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("Font family",'striking_admin'),
-						"desc" => '',
+						"name" => __("Site Font family",'striking_admin'),
+						"desc" => __("<p>This dropdown contains a list of 9 standard web fonts that are the core fonts for Striking.&nbsp;&nbsp;Which ever font you select will be the font you will see across your entire site for both body text and descriptive text (such as headers, navigation labels, post titles, etc).</p><p>In Striking, one has the alternative of using one of the many custom Cufon, Fontface or Google fonts supplied for either custom replacement of selective descritive and/or body text by way of custom css, or by enabling the custom font fully across all descriptive text types via the Font settings for each custom font.</p><p>If one full enables a custom font for descriptive text in a site, all body text types such as standard paragraph text, slider description text, widget body text, etc will still be in the standard font chosen here, unless you choose to replace the standard body font with custom css.</p>",'striking_admin'),	
 						"id" => "font_family",
 						"default" => '"Lucida Sans Unicode","Lucida Grande",Garuda,sans-serif',
 						"options" => array(
@@ -139,7 +142,7 @@ SCRIPTS;
 					),
 					array(
 						"name" => __("Link Hover Underline",'striking_admin'),
-						"desc" => "",
+						"desc" => __("<p>Enabling this setting will cause all web links listed in body text to be underlined.<p>",'striking_admin'),	
 						"id" => "link_underline",
 						"default" => false,
 						"type" => "toggle"
@@ -162,7 +165,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Logo Description Size",'striking_admin'),
+						"name" => __("Logo Tagline Size",'striking_admin'),
 						"desc" => "",
 						"id" => "site_description",
 						"min" => "1",
@@ -173,7 +176,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Top Level Menu Text Size",'striking_admin'),
+						"name" => __("Top Level Navigation Menu Text Size",'striking_admin'),
 						"desc" => "",
 						"id" => "menu_top",
 						"min" => "1",
@@ -184,7 +187,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Sub Level Menu Text Size",'striking_admin'),
+						"name" => __("Sub Level Navigation Menu Text Size",'striking_admin'),
 						"desc" => "",
 						"id" => "menu_sub",
 						"min" => "1",
@@ -206,7 +209,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Feature Header Custom Text Size",'striking_admin'),
+						"name" => __("Feature Header Custom Title Text Size",'striking_admin'),
 						"desc" => "",
 						"id" => "feature_introduce",
 						"min" => "1",
@@ -217,19 +220,8 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Anything Slider Desc Text Size",'striking_admin'),
-						"desc" => "",
-						"id" => "anything_desc",
-						"min" => "1",
-						"max" => "60",
-						"step" => "1",
-						"unit" => 'px',
-						"default" => "12",
-						"type" => "range"
-					),
-					array(
-						"name" => __("Accordion Slider Title Text Size",'striking_admin'),
-						"desc" => "",
+						"name" => __("Accordion Slider Non-Hover Caption Text Size",'striking_admin'),
+						"desc" => __("<p>This setting allows one to adjust the Accordion Slider caption text size as it appears when a slider loads on a page and the slider is cycling between slides.&nbsp;&nbsp;So with this setting you decide the text size that will appear during the regular aspects of the slideshow.&nbsp;&nbsp;In the <b>On-Hover Caption</b> setting below, you have the ability to decide the size of this caption text when a user cursor hovers over the slide image.</p><p>You create the Accordion Slider caption using the <b>Slide Caption</b> field in the <b>Striking Slider Options ->Slider Item Options</b> metabox found below the slide post content editor on any slide you are editing.",'striking_admin'),	
 						"id" => "kwick_title",
 						"min" => "1",
 						"max" => "60",
@@ -239,8 +231,8 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Accordion Slider Detail Text Size",'striking_admin'),
-						"desc" => "",
+						"name" => __("Accordion Slider On-Hover Caption Text Size",'striking_admin'),
+						"desc" => __("<p>This setting allows one to adjust the Accordion Slider caption text size as it appears when a viewer cursor is hovering over the slide - in Striking this slider caption has a mode where typically one will have the caption expand in size on slide hover in order to grab the attention of the viewer.&nbsp;&nbsp;So with this setting you decide the on-slide hover expansion text size.</p><p>You create the Accordion Slider caption using the <b>Slide Caption</b> field in the <b>Striking Slider Options ->Slider Item Options</b> metabox found below the slide post content editor on any slide you are editing.",'striking_admin'),	
 						"id" => "kwick_detail_header",
 						"min" => "1",
 						"max" => "60",
@@ -250,8 +242,8 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Accordion Slider Detail Text Size",'striking_admin'),
-						"desc" => "",
+						"name" => __("Accordion Slider Description Text Size",'striking_admin'),
+						"desc" => __("<p>This setting allows one to adjust the size of the text for the Accordion Slider description.&nbsp;&nbsp;You create the Accordion Slider description using the <b>Description</b> field in the <b>Striking Slider Options ->Slider Item Options</b> metabox found below the slide post content editor on any slide you are editing.</p>",'striking_admin'),	
 						"id" => "kwick_desc",
 						"min" => "1",
 						"max" => "60",
@@ -261,8 +253,30 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Page Text Size",'striking_admin'),
-						"desc" => "",
+						"name" => __("Anything Slider Caption Text Size",'striking_admin'),
+						"desc" => __("<p>This setting allows one to adjust the size of the text for the Anything Slider caption.</p>",'striking_admin'),	
+						"id" => "anything_caption",
+						"min" => "1",
+						"max" => "60",
+						"step" => "1",
+						"unit" => 'px',
+						"default" => "24",
+						"type" => "range"
+					),
+					array(
+						"name" => __("Anything Slider Description Text Size",'striking_admin'),
+						"desc" => __("<p>This setting allows one to adjust the size of the text for the Anything Slider description.&nbsp;&nbsp;You create the Anything Slider description using the <b>Description</b> field in the <b>Striking Slider Options ->Slider Item Options</b> metabox found below the slide post content editor on any slide you are editing.</p>",'striking_admin'),	
+						"id" => "anything_desc",
+						"min" => "1",
+						"max" => "60",
+						"step" => "1",
+						"unit" => 'px',
+						"default" => "12",
+						"type" => "range"
+					),
+					array(
+						"name" => __("Page Body Text Size",'striking_admin'),
+						"desc" => __("<p>Body text includes text in a page or post body, widget body, description text of a slider item, normal text variations such as bold, sub and superscript, emphasized, etc.</p>",'striking_admin'),	
 						"id" => "page",
 						"min" => "1",
 						"max" => "60",
@@ -360,7 +374,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Portfolio Title Size",'striking_admin'),
+						"name" => __("Portfolio Post Title Size",'striking_admin'),
 						"desc" => "",
 						"id" => "portfolio_title",
 						"min" => "1",
@@ -393,7 +407,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Footer Text Title",'striking_admin'),
+						"name" => __("Footer Text Size",'striking_admin'),
 						"desc" => "",
 						"id" => "footer_text",
 						"min" => "1",
@@ -404,7 +418,7 @@ SCRIPTS;
 						"type" => "range"
 					),
 					array(
-						"name" => __("Footer Widget Title",'striking_admin'),
+						"name" => __("Footer Widget Title Size",'striking_admin'),
 						"desc" => "",
 						"id" => "footer_title",
 						"min" => "1",
@@ -427,7 +441,7 @@ SCRIPTS;
 					),
 					array(
 						"name" => __("Footer Menu Text Size",'striking_admin'),
-						"desc" => "",
+						"desc" => __("<p>This font size sets the size of navigation labels if one has enable the sub footer widget area for Navigation and created a footer menu in the Striking Custom Menu function.</p>",'striking_admin'),	
 						"id" => "footer_menu",
 						"min" => "1",
 						"max" => "60",
@@ -443,23 +457,16 @@ SCRIPTS;
 				"name" => __("Cufon Settings",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("Enable Cufon",'striking_admin'),
-						"desc" => "",
+						"name" => __("Enable Cufon Font",'striking_admin'),
+						"desc" => __("<p>Cufon is a font-replacement technique that uses javascript and vector graphics to write fonts from a font file (TTF, OTF or PFB) to your browser.&nbsp;&nbsp;Many interesting free and paid variations of Cufon are available and Striking includes 45 royalty free Cufon fonts for your use.</p><p>Cufon is very popular but as js has changed, some of the royalty free fonts don't always render correctly in the newest versions of some browsers (support for the js techniques that Cufon uses is up to the browsers and changes with every update). &nbsp;&nbsp;Sometimes one will experience, depending on the browswer, what is commonly known as the <em>Cufon Delay.</em> &nbsp;&nbsp;In this situation a page loads, and as one of the very last steps in the page loading process when java scripting typically take place, the process of replacing the web font with Cufon is executed, sometimes with a visible margin of delay. &nbsp;&nbsp; Should this occur and you dislike it, the choice is to select a different Cufon or other font type for use in your site.</p><p><b>USAGE IN STRIKING:</b></p><p><u>Step 1</u> is to enable the potential for Cufon with this setting - you are turning on Cufon, but not yet making it active in replacement of any text within the site. &nbsp;&nbsp;<b>VERY IMPORTANT - SAVE THE PANEL AFTER THIS STEP.  DO NOT PROCEED TO STEP 2 UNTIL YOU HAVE SAVED THIS SETTING!</b></p><p><u>Step 2</u> is to choose a cufon font in the <b>Choose Cufon</b> setting below - selecting a cufon font makes that specific font now available for usage, but still not actively replacing any text in the site as it has not been told what to replace.</p><p>Once one has made available a cufon font one has two choices:</p><p>1) Use custom css pasted into the <b>Cufon Custom CSS Code Field</b> below to selectively replace the regular web font where one desires (samples are provided in its help field), or</p><p>2) Turn <em>ON</em> the setting for <b>Enable Cufon Replacment for all Descriptive Text Types</b> (this field is ajaxed and only appears once you have chosen a font in Step 2 above) in which case your selected Cufon Font will replace the standard web font chosen for the site with the selected Cufon Font for all the descriptive font places in Striking (see help field for the list and also some special instructions on what not to do!).</p>",'striking_admin'),		
 						"id" => "cufon_enabled",
 						"default" => true,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Cufon Code",'striking_admin'),
-						"desc" => __('sample:<p><code>Cufon.replace("h1,h2,h3,h4,h5", {fontFamily : "Vegur"});</code></p><p><code>Cufon.replace("#site_name", {fontFamily : "Vegur", color: \'-linear-gradient(white, black)\'});</code></p><p>For more code tips go to official <a href="http://wiki.github.com/sorccu/cufon/styling">Cufon\'s site</a>','striking_admin'),
-						"id" => "cufon_code",
-						"default" => '',
-						"rows" => '8',
-						"type" => "textarea"
-					),
-					array(
 						"id" => "cufon_used",
-						"name" =>__('Enable Cufon Font',"striking_admin"),
+						"name" =>__('Choose Cufon Font',"striking_admin"),
+						"desc" => __("<p>Click in the field with your cursor and choose a font.&nbsp;&nbsp;One may have more then one Cufon font active at the same time, each being used for various web font replacements as well as one being the default font for most descriptive replacement in that setting below.</p><p>Choose multiple fonts by holding down the Cntrl key on your keyboard while scrolling and clicking the fonts in the list, just as you would do to select multiple items on your desktop computer.</p> ",'striking_admin'),
 						"default" => array(),
 						"prompt" => __("Choose Cufon font..","striking_admin"),
 						"type" => "fontchosen",
@@ -491,10 +498,19 @@ SCRIPTS;
 		Cufon.replace(element,{fontFamily: cufon_list[font.value].name});
 	}
 };',
+					),	
+					array(
+						"name" => __("Cufon Custom CSS Code Field",'striking_admin'),
+						"desc" => __('<p>One can selectively replace any web text in Striking, although typically one is usually replacing descriptive text of some sort.</p><p>Here is an example of two replacements, and in this example, notice that two separate Cufon fonts are used - one would have to have enabled both of these fonts in the <b>Choose Cufon Font</b> setting above.  Take either or both code snippets and copy and paste into the field below, and then change the font names to the name of the Cufon font you have chosen.</p><p><code>Cufon.replace("h1,h2,h3,h4,h5", {fontFamily : "Vegur"});</code></p><p><code>Cufon.replace("#site_name", {fontFamily : "Segan", color: \'-linear-gradient(white, black)\'});</code></p><p>For more code tips go to official <a href="http://wiki.github.com/sorccu/cufon/styling">Cufon\'s site</a></p>','striking_admin'),							"id" => "cufon_code",
+						"default" => '',
+						"id" => "cufon_code",
+						"rows" => '8',
+						"type" => "textarea"
 					),
 					array(
 						"id" => "cufon_default",
-						"name" =>__('Enabled Cufon font list (select a default font)',"striking_admin"),
+						"name" =>__('Enable Cufon Replacment for all Descriptive Text Types',"striking_admin"),
+						"desc" => __("<p>All Cufon fonts you have chosen to make available via the <b>Choose Cufon Font</b> setting above will appear below.&nbsp;&nbsp;Set the toggle to the <em>On</em> position for one of the fonts below, and it will replace all descriptive text types in your site after saving.</p><p><b>WARNING:</b> &nbsp;&nbsp;Do not activate more then one font as the font for replacing all descriptive types as it can lead to extremely unpredictable behaviour, and crash both your site and your browser! (ie, Doing stupid things leads to bad consequences -> you have been warned! (James aka Websys)).</p><p>The following are replaced by the Cufon font when you have activated this setting - this is not the actual script but just the names of the elements that are replaced taken from it:<br /><br /><code>(site_name, site_description, .kwick_title, .kwick_detail h3, footer h3, copyright, .dropcap1, .dropcap2, .dropcap3, .dropcap4, feature h1, introduce, portfolio_title, h1, h2, h3, h4, h5, h6, navigation a, .entry_title a, hover:true</code></p>",'striking_admin'),
 						"layout" => false,
 						"function" => "_option_cufon_fonts_function",
 						"default" => '',
@@ -508,22 +524,15 @@ SCRIPTS;
 				"options" => array(
 					array(
 						"name" => __("Enable @font-face",'striking_admin'),
-						"desc" => "",
+						"desc" => __("<p>font-face is a font-replacement technique that uses a CSS rule to enable the viewing of a font on a Web page even if that font is not installed on the user's computer.</p><p><u>USAGE IN STRIKING:</u> &nbsp;The first step is to enable the potential for fontface with this setting - you are turning on fontface, but not yet making it active in replacement of any text within the site.&nbsp;&nbsp;Step 2 is to choose a fontface font in the <b>Choose @fontface Font</b> setting, which once you select a fontface font makes it an available fontface font for replacing some of the web font usage, but still not actively replacing any text in the site as it has not been told what to replace.&nbsp;&nbsp;Once one has made available a fontface font for replacement one has two choices:</p><p>1) Use custom css pasted into the <b>@fontface Custom CSS Code Field</b> below to selectively replace the regular web font where one desires (samples are provided in its help field), or</p><p>2) Turn <em>ON</em> the setting for <b>Enable @fontface Replacment for all Descriptive Text Types</b> (this field is ajaxed and only appears once you have chosen a font in Step 2 above)in which case your selected fontface font will replace the standard web font chosen for the site with the selected fontface font for all the descriptive font usages in Striking (see help field for the list).</p>",'striking_admin'),	
 						"id" => "fontface_enabled",
 						"default" => true,
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("@font-face Custom CSS",'striking_admin'),
-						"desc" => __('sample:<p><code>h1,h2,h3,h4,h5 { font-family:ColaborateLightRegular; }</code></p>','striking_admin'),
-						"id" => "fontface_code",
-						"default" => '',
-						"rows" => '8',
-						"type" => "textarea"
-					),
-					array(
 						"id" => "fontface_used",
-						"name" =>__('Enable Fontface Font',"striking_admin"),
+						"name" =>__('Choose @font-face Font',"striking_admin"),
+						"desc" => __("Click in the field with your cursor and choose a font.&nbsp;&nbsp;One may have more then one fontface font active at the same time, each being used for various web font replacements as well as one being the default font for most descriptive replacement in that setting below.&nbsp;&nbsp;Choose multiple fonts by holding down the Cntrl key on your keyboard while scrolling and clicking the fonts in the list, just as you would do to select multiple items on your desktop computer. ",'striking_admin'),
 						"default" => array(),
 						"prompt" => __("Choose fontface font..","striking_admin"),
 						"chosen" => "true",
@@ -554,8 +563,17 @@ SCRIPTS;
 						"options"=> $this->get_fontface_fonts_list(),
 					),
 					array(
+						"name" => __("@font-face Custom CSS Code Field",'striking_admin'),
+						"desc" => __('One can selectively replace any web text in Striking, although typically one is usually replacing descriptive text of some sort.<br /><br />Here is an example of a replacement and you would take this code snippet and copy and paste into the field below, and then change the font name to the name of the fontface font you have chosen.<p><code>h1,h2,h3,h4,h5 { font-family:ColaborateLightRegular; }</code></p><p>For more code tips go to official <a href="http://www.fontsquirrel.com/">fontface site.</a>','striking_admin'),	
+						"id" => "fontface_code",
+						"default" => '',
+						"rows" => '8',
+						"type" => "textarea"
+					),
+					array(
 						"id" => "fontface_default",
-						"name" =>__('Enabled @fontface font list (select a default font)',"striking_admin"),
+						"name" =>__('Enable a @font-face Replacment for all Descriptive Text Types',"striking_admin"),
+						"desc" => __("<p>All fontface fonts you have chosen to make available via the <b>Choose @font-face Font</b> setting above will appear below.&nbsp;&nbsp;Set the toggle to the <em>On</em> position for one of the fonts below, and it will replace all descriptive text types in your site after saving.</p><p><b>WARNING:</b> &nbsp;&nbsp;Do not activate more then one font as the font for replacing all descriptive types as it can lead to extremely unpredictable behaviour, and crash both your site and your browser! (ie, Doing stupid things leads to bad consequences -> you have been warned! (James aka Websys)).</p><p>The following are replaced by the fontface font when you have activated this setting - this is not the actual script but just the names of the elements that are replaced taken from it:<br /><br /><code>(site_name, site_description, .kwick_title, .kwick_detail h3, footer h3, copyright, .dropcap1, .dropcap2, .dropcap3, .dropcap4, feature h1, introduce, portfolio_title, h1, h2, h3, h4, h5, h6, navigation a, .entry_title a, hover:true</code></p>",'striking_admin'),	
 						"layout" => false,
 						"function" => "_option_fontface_fonts_function",
 						"default" => '',
@@ -567,18 +585,11 @@ SCRIPTS;
 				"slug" => 'gfont',
 				"name" => __("Google font Settings",'striking_admin'),
 				"options" => array(
-					array(
-						"name" => __("Google Font Custom CSS","striking_admin"),
-						"desc" => __('sample:<p><code>h1,h2,h3,h4,h5 { font-family:ColaborateLightRegular; }</code></p>',"striking_admin"),
-						"id" => "gfont_code",
-						"default" => '',
-						"rows" => '8',
-						"type" => "textarea"
-					),
+			
 					array(
 						"id" => "gfont_used",
 						"name" =>__('Enable Google Font',"striking_admin"),
-						'desc' =>__('Go to <a href="http://www.google.com/webfonts" target="_blank">Google webfonts library</a> to choose the fonts.',"striking_admin"),
+						'desc' =>__('<p>Below is a dropdown selectior with a list of over 600 google fonts for use in your site.&nbsp;&nbsp;If the font you desire is not in this list then go to <a href="http://www.google.com/webfonts" target="_blank">Google webfonts library</a> to check on the availability of the font from Google.</p>',"striking_admin"),
 						"default" => array(),
 						"prompt" => __("Choose google font..","striking_admin"),
 						"chosen" => "true",
@@ -601,9 +612,18 @@ SCRIPTS;
 };',
 						"options"=> $this->get_google_fonts(),
 					),
+	array(
+						"name" => __("Google Font Custom CSS","striking_admin"),
+						"desc" => __('<p>Font replacement CSS for Google Fonts can be fairly straightforward.&nbsp;&nbsp; Here is a sample code snippet for substituting for the header fonts with the google Droid Sans font into the website:<p><code>h1,h2,h3,h4,h5 { font-family:"Droid Sans"; }</code></p>',"striking_admin"),
+						"id" => "gfont_code",
+						"default" => '',
+						"rows" => '8',
+						"type" => "textarea"
+					),
 					array(
 						"id" => "gfont_default",
-						"name" =>__('Enabled Google font list (select a default font)',"striking_admin"),
+						"name" =>__('Enable a Google Font Replacment for all Descriptive Text Types',"striking_admin"),
+						"desc" => __("<p>All Google fonts you have chosen to make available via the <b>Choose Google Font</b> setting above will appear below.&nbsp;&nbsp;Set the toggle to the <em>On</em> position for one of the fonts below, and it will replace all descriptive text types in your site after saving.</p><p><b>WARNING:</b> &nbsp;&nbsp;Do not activate more then one font as the font for replacing all descriptive types as it can lead to extremely unpredictable behaviour, and crash both your site and your browser! (ie, Doing stupid things leads to bad consequences -> you have been warned! (James aka Websys)).</p><p>The following are replaced by the Google font when you have activated this setting - this is not the actual script but just the names of the elements that are replaced taken from it:<br /><br /><code>(site_name, site_description, .kwick_title, .kwick_detail h3, footer h3, copyright, .dropcap1, .dropcap2, .dropcap3, .dropcap4, feature h1, introduce, portfolio_title, h1, h2, h3, h4, h5, h6, navigation a, .entry_title a, hover:true</code></p>",'striking_admin'),
 						"layout" => false,
 						"function" => "_option_google_fonts_function",
 						"default" => '',

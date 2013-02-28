@@ -5,7 +5,7 @@
  * @package Striking
  * @since Striking 5.2
  */
-function theme_section_blog_featured_image($type='full',$layout='',$height='',$frame = false,$effect= ''){
+function theme_section_blog_featured_image($type='full',$layout='',$height='',$frame = false,$effect= '',$single = false){
 	if (!has_post_thumbnail()){
 		return '';
 	}
@@ -51,7 +51,7 @@ function theme_section_blog_featured_image($type='full',$layout='',$height='',$f
 	$output = '';
 	$output .= '<div class="image_styled entry_image"'.(($type=='left' || $type=='right')?' style="width:'.$width.'px"':'').'>';
 	$output .= '<span class="image_frame effect-'.$effect.'" style="height:'.$height.'px;width:'.$width.'px">';
-	if(is_single()){
+	if($single){
 		if(theme_get_option('blog', 'featured_image_lightbox')){
 			if(theme_get_option('blog', 'featured_image_lightbox_gallery')){
 				$output .= '<a class="image_icon_zoom lightbox" href="'.$image_src_array[0].'" rel="post-'.get_queried_object_id().'" title="'.get_the_title().'">';

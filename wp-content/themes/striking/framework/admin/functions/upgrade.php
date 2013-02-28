@@ -17,9 +17,9 @@ class upgradeHelper {
 		if ( 0 === strpos( $url, $this->getPackage() ) ) {
 			switch (wp_remote_retrieve_response_code( $response )){
 				case '401':
-					return new WP_Error( 'unauthorized',  __('Please input your purchase code','striking_front'));
+					return new WP_Error( 'unauthorized',  __('Please input your purchase code','striking_admin'));
 				case '406':
-					return new WP_Error( 'not_acceptable',  __('Please contact theme author','striking_front'));	
+					return new WP_Error( 'not_acceptable',  __('Please contact theme author','striking_admin'));	
 			}
 			
 	    }
@@ -32,9 +32,9 @@ class upgradeHelper {
 		$has_update =  $this->check();
 		if($has_update){
 			if ( current_user_can('update_core') ) {
-				$msg = sprintf( __('%2$s %1$s is available! <a href="%3$s">Please update now</a>.','striking_front'), $has_update, THEME_NAME, admin_url( 'admin.php?page=theme_advanced#update') );
+				$msg = sprintf( __('%2$s %1$s is available! You should review the instructions in the version thread at the Striking Support forum prior to updating first. Then <a href="%3$s">update it</a>.','striking_admin'), $has_update, THEME_NAME, admin_url( 'admin.php?page=theme_advanced&tab=update#update') );
 			} else {
-				$msg = sprintf( __('%2$s %1$s is available! Please notify the site administrator.','striking_front'), $has_update, THEME_NAME );
+				$msg = sprintf( __('%2$s %1$s is available! Please notify the site administrator.','striking_admin'), $has_update, THEME_NAME );
 			}
 			echo "<div class='update-nag'>$msg</div>";
 		}
@@ -111,7 +111,7 @@ class upgradeHelper {
 	}
 	function update(){
 		if ( ! current_user_can( 'update_themes' ) )
-			wp_die( __('You do not have sufficient permissions to update this site.','striking_front') );
+			wp_die( __('You do not have sufficient permissions to update this site.','striking_admin') );
 
 		$title =  sprintf(__('Update %s Themes','striking_admin'),THEME_NAME);
 		check_admin_referer('upgrade-'.THEME_SLUG);
@@ -157,10 +157,10 @@ class upgradeHelper {
 		if ( is_wp_error($result) ) {
 			show_message($result);
 			if ('up_to_date' != $result->get_error_code() )
-				show_message( __('Installation Failed','striking_front') );
+				show_message( __('Installation Failed','striking_admin') );
 		} else {
 			show_message( sprintf(__('%s updated successfully','striking_admin'),THEME_NAME) );
-			show_message( '<a href="' . esc_url( self_admin_url() ) . '">' . __('Go to Dashboard','striking_front') . '</a>' );
+			show_message( '<a href="' . esc_url( self_admin_url() ) . '">' . __('Go to Dashboard','striking_admin') . '</a>' );
 		}
 		
 		echo '</div>';
@@ -174,10 +174,10 @@ if(isset($_GET['action']) && $_GET['action'] == THEME_SLUG.'_theme_update'){
 	class Kaptinlin_Theme_Upgrader extends WP_Upgrader {
 		function upgrade_strings() {
 			$this->strings['up_to_date'] = sprintf(__('%s is at the latest version.','striking_admin'),THEME_NAME);
-			$this->strings['no_package'] = __('Update package not available.','striking_front');
-			$this->strings['downloading_package'] = __('Downloading update from <span class="code">%s</span>&#8230;','striking_front');
-			$this->strings['unpack_package'] = __('Unpacking the package&#8230;','striking_front');
-			$this->strings['copy_failed'] = __('Could not copy files.','striking_front');
+			$this->strings['no_package'] = __('Update package not available.','striking_admin');
+			$this->strings['downloading_package'] = __('Downloading update from <span class="code">%s</span>&#8230;','striking_admin');
+			$this->strings['unpack_package'] = __('Unpacking the package&#8230;','striking_admin');
+			$this->strings['copy_failed'] = __('Could not copy files.','striking_admin');
 		}
 		function upgrade($theme) {
 			global $wp_filesystem;

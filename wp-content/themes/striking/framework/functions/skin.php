@@ -236,7 +236,7 @@ CSS;
 #navigation > ul > li.has-children.hover > a:after {
 	border-top-color: {$color['menu_top_active']};
 }
-#navigation ul ul .has-children > a:after {
+#navigation ul .hover ul .has-children > a:after {
 	content: ' ';
 	display: inline-block;
 	width: 0;
@@ -619,6 +619,9 @@ h6 {
 	background-color: {$color['nivo_caption_bg']};
 	color: {$color['nivo_caption_text']};
 }
+.slider_control_bg {
+	background-color: {$color['nivo_caption_bg']};
+}
 #kwicks li {
 	height: {$kwicks_height}px;
 }
@@ -634,17 +637,34 @@ ul.anythingBase li.panel, div.anythingSlider .anythingWindow {
 #anything_slider_wrap, #anything_slider_loading, #anything_slider {
 	height: {$anything_height}px;
 }
-#kwicks li .kwick_title {
-	font-size: {$font['kwick_title']}px;
-}
 #anything_slider p {
 	font-size: {$font['anything_desc']}px;
 }
+.anything_caption h3 {
+	font-size: {$font['anything_caption']}px;
+}
+#kwicks li .kwick_title {
+	font-size: {$font['kwick_title']}px;
+	color: {$color['accordion_caption']};
+	background-color: {$color['accordion_caption_bg']};
+}
 #kwicks li .kwick_detail h3 {
 	font-size: {$font['kwick_detail_header']}px;
+	color: {$color['accordion_detail_header']};
 }
-#kwicks li .kwick_desc {
+#kwicks li .kwick_detail {
 	font-size: {$font['kwick_desc']}px;
+	color: {$color['accordion_detail']};
+	background-color: {$color['accordion_detail_bg']};
+}
+.anything_caption {
+	background-color: {$color['anything_caption_bg']};
+}
+.anything_caption h3 {
+	color: {$color['anything_caption_header']} !important;
+}
+.anything_caption p {
+	color: {$color['anything_caption']} !important;
 }
 .caption_left, .caption_right {
 	height: {$anything_caption_height}px;
@@ -720,10 +740,42 @@ ul.mini_tabs li a.current {
 	background-color: {$color['accordion_current_bg']};
 	color: {$color['accordion_current_text']};
 }
-#page input, #page textarea {
+#page input[type="text"],
+#page input[type="password"],
+#page input[type="email"],
+#page input[type="file"],
+#page input[type="datetime"],
+#page input[type="datetime-local"],
+#page input[type="date"],
+#page input[type="month"],
+#page input[type="time"],
+#page input[type="week"],
+#page input[type="number"],
+#page input[type="url"],
+#page input[type="search"],
+#page input[type="tel"],
+#page input[type="color"],
+#page textarea {
 	color: {$color['input_text']};
 }
-#footer input, #footer textarea, #footer .text_input, #footer .textarea {
+#footer input[type="text"],
+#footer input[type="password"],
+#footer input[type="email"],
+#footer input[type="file"],
+#footer input[type="datetime"],
+#footer input[type="datetime-local"],
+#footer input[type="date"],
+#footer input[type="month"],
+#footer input[type="time"],
+#footer input[type="week"],
+#footer input[type="number"],
+#footer input[type="url"],
+#footer input[type="search"],
+#footer input[type="tel"],
+#footer input[type="color"],
+#footer textarea, 
+#footer .text_input, 
+#footer .textarea {
 	color:  {$color['footer_text_field_color']};
 }
 {$custom_css}

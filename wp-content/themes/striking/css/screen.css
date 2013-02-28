@@ -85,6 +85,10 @@ hr {
 input, select {
   vertical-align: middle;
 }
+/* corrects overflow displayed oddly in ie 9 */
+svg: not(: root) {
+  overflow: hidden;
+}
 /* ======================================================= */
 /*                       Base Style                        */
 /* ======================================================= */
@@ -312,13 +316,11 @@ caption {
 }
 /* Table Style
 ---------------------------------------------------------- */
-.table_style
-{
+.table_style {
 	border: 1px solid #dddddd;
 	margin-bottom:20px;
 }
-.table_style table
-{
+.table_style table {
 	text-align: left;
 	border-collapse: collapse;
 	border: 1px solid #fff;
@@ -326,8 +328,7 @@ caption {
 	padding:0;
 	margin:0;
 }
-.table_style th
-{
+.table_style th {
 	text-align:center;
 	padding:12px;
 	font-weight: normal;
@@ -335,29 +336,24 @@ caption {
 	color: #555;
 	background-color:#EEEEEE;
 }
-.table_style tbody
-{
+.table_style tbody {
 	background: #F9F9F9;
 }
-.table_style td
-{
+.table_style td {
 	text-align:center;
 	padding: 10px;
 	color: #666;
 	border-top: 1px dashed #fff;
 }
-.table_style tbody tr:hover td
-{
+.table_style tbody tr:hover td {
 	color: #333;
 	background: #fff;
 	border-top: 1px solid #fff;
 }
-.table_style tfoot
-{
+.table_style tfoot {
 	background-color:#f3f3f3;
 }
-.table_style tfoot td
-{
+.table_style tfoot td {
 	padding:8px;
 }
 /* ======================================================= */
@@ -529,7 +525,7 @@ p.wp-caption-text {
 .image_styled {
 	margin-bottom: 10px;
 }
-.image_styled.aligncenter .image_frame,.image_styled.aligncenter .image_shadow{
+.image_styled.aligncenter .image_frame,.image_styled.aligncenter .image_shadow {
 	margin: 0 auto;
 }
 .image_frame {
@@ -549,6 +545,9 @@ p.wp-caption-text {
 	margin: 0;
 	display:block;
 	text-align: center;
+}
+.image_styled.aligncenter .image_caption {
+	margin: 0 auto;
 }
 #feature .image_frame img {
 	visibility: visible;
@@ -1586,10 +1585,11 @@ a.button, a.button:hover {
 #cboxContent{position:relative;}
 #cboxLoadedContent{overflow:auto;}
 #cboxTitle{margin:0;}
-#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
 #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
-.cboxPhoto{float:left; margin:auto; border:0; display:block;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none;}
 .cboxIframe{width:100%; height:100%; display:block; border:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
 
 /* 
     ColorBox example user style
@@ -1623,9 +1623,9 @@ a.button, a.button:hover {
 		#cboxClose:hover{}
 
         .cboxSlideshow_on #cboxSlideshow{background-position:-125px 0px; right:27px;}
-        .cboxSlideshow_on #cboxSlideshow.hover{background-position:-150px 0px;}
+        .cboxSlideshow_on #cboxSlideshow:hover{background-position:-150px 0px;}
         .cboxSlideshow_off #cboxSlideshow{background-position:-150px -25px; right:27px;}
-        .cboxSlideshow_off #cboxSlideshow.hover{background-position:-125px 0px;}
+        .cboxSlideshow_off #cboxSlideshow:hover{background-position:-125px 0px;}
 
 #colorbox.no-title #cboxBottomLeft{width:29px; height:29px; background:url("../images/colorbox_corners.png") 0 -99px no-repeat;}
 #colorbox.no-title #cboxBottomCenter{height:29px; background:url("../images/colorbox_corners.png") 0 -169px repeat-x;}
@@ -1656,7 +1656,7 @@ a.button, a.button:hover {
 }
 #page {
 	position:relative;
-	background:url("../images/layout_sprites.png") repeat-x scroll 0 -24256px transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 0 -159px transparent;
 }
 #main, #sidebar{ position:relative; }
 * html #page, * html #sidebar{ display:inline; }
@@ -1664,7 +1664,7 @@ a.button, a.button:hover {
 #page .inner { padding: 40px 0 0; }
 #page_bottom {
 	height:30px;
-	background:url("../images/layout_sprites.png") repeat-x scroll 0 -19px transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 0 -20px transparent;
 }
 #footer {
 	width: 100%;
@@ -1682,7 +1682,7 @@ a.button, a.button:hover {
 	margin: 0 0 0.5em 30px;
 }
 .right_sidebar #sidebar_content {
-	background: url("../images/layout_sprites.png") no-repeat scroll left -209px transparent;
+	background: url("../images/sidebar_sprites.png") no-repeat scroll left -50px transparent;
 	padding-top:50px;
 	padding-left:25px;
 	min-height:100px;
@@ -1693,7 +1693,7 @@ a.button, a.button:hover {
 }
 .right_sidebar #sidebar_bottom {
 	clear:both;
-	background: url("../images/layout_sprites.png") no-repeat scroll left -159px transparent;
+	background: url("../images/sidebar_sprites.png") no-repeat scroll left 0 transparent;
 	height:50px;
 }
 /* Left Sidebar
@@ -1709,7 +1709,7 @@ a.button, a.button:hover {
 	margin: 0 30px 0.5em 0;
 }
 .left_sidebar #sidebar_content {
-	background: url("../images/layout_sprites.png") no-repeat scroll right -12259px transparent;
+	background: url("../images/left_sidebar_sprites.png") no-repeat scroll right -50px transparent;
 	padding-top:50px;
 	padding-right:25px;
 	min-height:100px;
@@ -1720,7 +1720,7 @@ a.button, a.button:hover {
 }
 .left_sidebar #sidebar_bottom {
 	clear:both;
-	background: url("../images/layout_sprites.png") no-repeat scroll right -12209px transparent;
+	background: url("../images/left_sidebar_sprites.png") no-repeat scroll right 0 transparent;
 	height:50px;
 }
 .home #sidebar_content {
@@ -1735,12 +1735,6 @@ a.button, a.button:hover {
 	position: relative;
 	height: 90px;
 }
-
-#header .inner
-{
-	width:1050px;
-}
-
 #top_area {
 	position: absolute;
 	right:0px;
@@ -1927,14 +1921,14 @@ a.button, a.button:hover {
 	overflow: hidden;
 }
 #feature .top_shadow {
-	background:url("../images/layout_sprites.png") repeat-x scroll 0 0 transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 0 0 transparent;
 	height: 10px;
 	font-size:0px;
 	overflow:hidden;
 	line-height: 10px;
 }
 #feature .bottom_shadow {
-	background:url("../images/layout_sprites.png") repeat-x scroll 0 -10px transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 0 -10px transparent;
 	height: 9px;
 	font-size:0px;
 	line-height:9px;
@@ -1968,7 +1962,7 @@ a.button, a.button:hover {
 	overflow:hidden;
 }
 #footer_shadow {
-	background:url("../images/layout_sprites.png") repeat-x scroll 0 -49px transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 0 -49px transparent;
 	height: 10px;
 	font-size:0px;
 	overflow:hidden;
@@ -1978,7 +1972,7 @@ a.button, a.button:hover {
 ---------------------------------------------------------- */
 #footer_bottom {
 	letter-spacing:1px;	
-	background:url("../images/layout_sprites.png") repeat-x scroll 50% -58px transparent;
+	background:url("../images/site_layout_sprites.png") repeat-x scroll 50% -58px transparent;
 }
 #footer_bottom .inner {
 	padding:12px 0;	
@@ -2115,6 +2109,12 @@ a.button, a.button:hover {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
+
+    pointer-events: none;
+    word-break:keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
 }
 .nivo-html-caption {
     display:none;
@@ -2163,8 +2163,10 @@ a.button, a.button:hover {
 .nivo-controlNav a:hover {
 	background-position: 0 -16px;
 }
-#slider_control_bg {
-	background:url("../images/nivo_slider_sprites.png") repeat-x scroll 0 -48px transparent;
+.nivo_control_bg {
+	background:#000;
+	opacity:0.5;
+	pointer-events: none;
 	position:absolute;
 	height:40px;
 	width:100%;
@@ -2263,21 +2265,21 @@ a.button, a.button:hover {
 .kwick_frame_top {
 	height:1px;
 	width:100%;
-	background:url("../images/slider_frame.png") no-repeat scroll 0 0 transparent;
+	background:url("../images/kwick_slider_frame.png") no-repeat scroll 0 0 transparent;
 	position:absolute;
 	top:0px;
 	z-index: 100;
 }
 .kwick_frame {
 	width:100%;
-	background:url("../images/slider_frame.png") no-repeat scroll 0 bottom transparent;
+	background:url("../images/kwick_slider_frame.png") no-repeat scroll 0 bottom transparent;
 	position:absolute;
 	top:1px;
 	z-index: 100;
 }
 .kwick_last_frame {
 	height:100%;
-	background:url("../images/slider_frame.png") no-repeat scroll right 0 transparent;
+	background:url("../images/kwick_slider_frame.png") no-repeat scroll right 0 transparent;
 	position:absolute;
 	width:1px;
 	right:0px;
@@ -2438,10 +2440,10 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 	width:220px;
 }
 .caption_left {
-	left:25px;
+	left:55px;
 }
 .caption_right {
-	right:25px;
+	right:55px;
 }
 /* Sidebar */
 .anything_sidebar_content {
@@ -2829,6 +2831,11 @@ div.anythingSlider, div.anythingSlider .anythingWindow, div.anythingSlider .thum
 }
 .read_more_link.button:active, .read_more_link.button.active {
 	top:1px;
+}
+.read_more_wrap {
+	top: -5px;
+	position: relative;
+	margin-bottom: 12px;
 }
 #feature .entry_meta .separater{
 	padding: 0 0.6em;
@@ -3549,6 +3556,7 @@ li.bypostauthor .gravatar {
 .video_frame {
   line-height: 100%;
   max-width: 100%;
+  font-size: 0;
 }
 .audio_frame {
   max-width: 100%;
@@ -3587,26 +3595,6 @@ a#back-to-top {
 a:hover#back-to-top {
 	background-position:bottom left;
 }
-
-
-/* Override */
-
-/* Sliders */
-.anything_caption h3 {opacity:1}
-.anything_caption p {opacity:0.9}
-
-/* Home 3 column */
-.four_fifth h3 {padding-top:10px;}
-
-
-
-/* Override icon spacing */
-.icon_text { padding: 0 0 0 25px; }
-
-/* Sidebar */
-.right_sidebar #sidebar {width:180px;}
-
-/* Content size with sidebar changed */
-.right_sidebar #main {width:750px;}
-.right_sidebar #main .content {width: 750px;}
-.right_sidebar .four_fifth {width:70%; margin-left:35px;}
+.entry_edit {
+    clear: both;
+}

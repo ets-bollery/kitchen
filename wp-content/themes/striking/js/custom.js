@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 			beforeFirstRender: function () {
 				if($(this).find('.cufon').length>0){
 					Cufon.replace($('> a', this));
-			}
+				}
 		    }
 		},
 		root: {
@@ -14,9 +14,15 @@ jQuery(document).ready(function($) {
 			afterHoverOut: function(){},
 			beforeHoverIn: function () {
 				$(this).addClass('hover');
+				if($(this).find('.cufon').length>0){
+					Cufon.replace($('> a', this));
+				}
 			},
 			beforeHoverOut: function () {
 				$(this).removeClass('hover');
+				if($(this).find('.cufon').length>0){
+					Cufon.replace($('> a', this));
+				}
 			}
 		}
 	});
@@ -113,12 +119,12 @@ jQuery(document).ready(function($) {
 		if($hoverBg!=undefined){
 			jQuery(this).css('background-color',$hoverBg);
 		}else{
-			//jQuery(this).css('background-color','');
+			jQuery(this).css('background-color','');
 		}
 		if($hoverColor!=undefined){
 			jQuery('span',this).css('color',$hoverColor);
 		}else{
-			//jQuery('span',this).css('color','');
+			jQuery('span',this).css('color','');
 		}
 	},
 	function(){
@@ -126,9 +132,13 @@ jQuery(document).ready(function($) {
 		var $color = jQuery(this).attr('data-color');
 		if($bg!=undefined){
 			jQuery(this).css('background-color',$bg);
+		}else{
+			jQuery(this).css('background-color','');
 		}
 		if($color!=undefined){
 			jQuery('span',this).css('color',$color);
+		}else{
+			jQuery('span',this).css('color','');
 		}
 	});
 	if(!jQuery('body').is('.no_colorbox')){
@@ -410,7 +420,7 @@ jQuery(document).ready(function($) {
 	};
 	enable_lightbox(document);
 
-	if(!jQuery('body').is('.no_colorbox') && jQuery.browser.msie){
+	if(!jQuery('body').is('.no_colorbox') && jQuery.browser.msie && parseInt(jQuery.browser.version, 10) < 9){
 	/* fix ie colorbox png transparent background bug */
 		document.getElementById("cboxTopLeft").style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+image_url+"/colorbox_ie/borderTopLeft.png', sizingMethod='scale')";
 		document.getElementById("cboxTopCenter").style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+image_url+"/colorbox_ie/borderTopCenter.png', sizingMethod='scale')";

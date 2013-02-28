@@ -40,7 +40,7 @@ return array(
 	"title" => __("Nivo Slideshow", "striking_admin"),
 	"shortcode" => 'slideshow',
 	"attributes" => 'type="nivo"',
-	"type" => 'both',
+	"type" => 'enclosing',
 	"init" => $init_script,
 	"options" => array(
 		array(

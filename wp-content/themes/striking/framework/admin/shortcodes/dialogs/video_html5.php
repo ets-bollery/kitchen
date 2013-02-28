@@ -23,7 +23,7 @@ return array(
 		),
 		array(
 			"name" => __("WebM Source",'striking_admin'),
-			"desc" => __('Supported by newer versions of Firefox, Chrome, and Opera.','striking_front'),
+			"desc" => __('Supported by newer versions of Firefox, Chrome, and Opera.','striking_admin'),
 			"id" => "webm",
 			"size" => 30,
 			"default" => "",

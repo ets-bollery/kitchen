@@ -40,7 +40,7 @@ return array(
 	"title" => __("Anything Slideshow", "striking_admin"),
 	"shortcode" => 'slideshow',
 	"attributes" => 'type="anything"',
-	"type" => 'both',
+	"type" => 'enclosing',
 	"init" => $init_script,
 	"options" => array(
 		array(

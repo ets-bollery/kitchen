@@ -10,7 +10,7 @@ function theme_update($from, $to) {
 	$wp_version = $GLOBALS['wp_version'];
 
 	$required_wp_version = '3.1';
-	$theme_version = '5.1.9.3';
+	$theme_version = '5.1.9.6';
 
 	$wp_compat     = version_compare( $wp_version, $required_wp_version, '>=' );
 
@@ -54,7 +54,7 @@ function theme_update($from, $to) {
 		$wp_filesystem->delete($to.'delete.php');
 		unlink($tempfile);
 		
-		return new WP_Error('backup_error', __('Backup error.','striking_front'));
+		return new WP_Error('backup_error', __('Backup error.','striking_admin'));
 	}
 	$wp_filesystem->put_contents($to . 'cache/backup/'.THEME_VERSION.'_'.$theme_version.'.zip',file_get_contents($tempfile),FS_CHMOD_FILE);
 	unlink($tempfile);

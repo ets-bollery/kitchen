@@ -75,7 +75,7 @@ class Theme_Metabox_PageGeneral extends Theme_Metabox_With_Tabs {
 						"default" => "",
 						"class" => 'full',
 						"htmlspecialchars" => true,
-						"type" => "text"		
+						"type" => "text"
 					),
 					array(
 						"name" => __("Feature Header Custom Text",'striking_admin'),
@@ -108,7 +108,7 @@ class Theme_Metabox_PageGeneral extends Theme_Metabox_With_Tabs {
 						"desc" => __("Number of Slide items to display.",'striking_admin'),
 						"id" => "_slideshow_number",
 						"min" => "0",
-						"max" => "10",
+						"max" => "20",
 						"step" => "1",
 						"default" => "0",
 						"type" => "range"

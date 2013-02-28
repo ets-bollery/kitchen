@@ -1,4 +1,95 @@
 <?php
+
+/**
+ * Retrieve option value based on name of option.
+ * 
+ * If the option does not exist or does not have a value, then the return value will be false.
+ * 
+ * @param string $page page name
+ * @param string $name option name
+ */
+function theme_get_option($page, $name = NULL) {
+	global $theme_options;
+
+	if($theme_options === NULL){
+		return theme_get_option_from_db($page, $name);
+	}
+
+	if ($name == NULL) {
+		if (isset($theme_options[$page])) {
+			return $theme_options[$page];
+		} else {
+			return false;
+		}
+	} else {
+		if (isset($theme_options[$page][$name])) {
+			return $theme_options[$page][$name];
+		} else {
+			return false;
+		}
+	}
+}
+
+function theme_get_option_from_db($page, $name = NULL){
+	$options = get_option(THEME_SLUG . '_' . $page);
+
+	if($name == NULL){
+		return $options;
+	}else{
+		if(is_array($options) && isset($options[$name])){
+			return $options[$name];
+		}
+		return false;
+	}
+}
+
+function theme_get_inherit_option($post_id, $meta_name, $page, $option_name) {
+	$value = get_post_meta($post_id, $meta_name, true);
+
+	if($value === 'false'){
+		return false;
+	}
+	if($value===""|| $value == 'default'){
+		$value=theme_get_option($page, $option_name);
+	}
+	return $value;
+}
+
+function theme_set_option($page, $name, $value) {
+	global $theme_options;
+	$theme_options[$page][$name] = $value;
+	
+	update_option(THEME_SLUG . '_' . $page, $theme_options[$page]);
+}
+
+function theme_get_sidebar_default(){
+	if(theme_is_post_type('post')){
+		return theme_get_option('sidebar','single_post');
+	}
+	if(theme_is_post_type('portfolio')){
+		return theme_get_option('sidebar','single_portfolio');
+	}
+	if(theme_is_post_type('page')){
+		return theme_get_option('sidebar','single_page');
+	}
+	return '';
+}
+
+function theme_get_sidebar_options(){
+	$sidebars = theme_get_option_from_db('sidebar','sidebars');
+	if(!empty($sidebars)){
+		$sidebars_array = explode(',',$sidebars);
+		
+		$options = array();
+		foreach ($sidebars_array as $sidebar){
+			$options[$sidebar] = $sidebar;
+		}
+		return $options;
+	}else{
+		return array();
+	}
+}
+
 /**
  * It will return a boolean value.
  * If the value to be checked is empty, it will use default value instead of.
@@ -98,7 +189,13 @@ function is_blog() {
 	
 	return false;
 }
-
+function is_shortcode_dialog() {
+	if(isset($_GET['action']) && $_GET['action']=='theme-shortcode-dialog'){
+		return true;
+	}else{
+		return false;
+	}
+}
 function is_shortcode_preview() {
 	if(defined('DOING_AJAX') && isset($_GET['action']) && $_GET['action']=='theme-shortcode-preview'){
 		return true;
@@ -605,7 +702,7 @@ function theme_portfolio_ajax_init(){
 	}
 	exit();
 }
-add_action('init', 'theme_portfolio_ajax_init');
+add_action('wp_loaded', 'theme_portfolio_ajax_init');
 
 function theme_maybe_process_contact_form(){
 	$submit_contact_form = isset($_POST["theme_contact_form_submit"]) ? $_POST["theme_contact_form_submit"] : 0;
@@ -616,7 +713,7 @@ function theme_maybe_process_contact_form(){
 }
 add_action('wp', 'theme_maybe_process_contact_form', 9);
 
-add_action('init', 'theme_exclude_from_search');
+add_action('wp_loaded', 'theme_exclude_from_search');
 function theme_exclude_from_search(){
 	global $wp_post_types;
 	$post_types = theme_get_option('advanced','exclude_from_search');
@@ -698,7 +795,7 @@ if('wp-signup.php' == basename($_SERVER['PHP_SELF'])){
 		$output = '<div id="feature">';
 		$output .= '<div class="top_shadow"></div>';
 		$output .= '<div class="inner">';
-		$output .= '<h1>Sign Up Now</h1>';
+		$output .= '<h1>'.__('Sign Up Now','striking_front').'</h1>';
 		$output .= '</div>';
 		$output .= '<div class="bottom_shadow"></div>';
 		$output .= '</div>';

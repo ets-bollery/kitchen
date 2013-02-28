@@ -33,11 +33,11 @@ $custom_script = <<<HTML
 		attrs['href'].attributeText = 'href="'+ attrs['href'].value +'"';
 	}
 
-	var use = ['title','group','width','height','group','photo','close','href','inline','iframe','restrict'];
+	var use = ['title','group','width','height','group','photo','close','href','inline','iframe','fittoview'];
 	for (x in use) {
 		options[use[x]] = attrs[use[x]];
 	}
-	return '[lightbox' + this.builtAttributesChain(options) + ']'+  attrs['content'].value +'[/lightbox] '+ extra;
+	return '[lightbox' + this.builtAttributesChain(options) + ']'+  attrs['content'].value +'[/lightbox]'+ extra;
 HTML;
 return array(
 	"title" => __("Lightbox", "striking_admin"),

@@ -81,9 +81,13 @@ if ($columns != 1) {
 	else:
 		the_excerpt();
 		if(theme_get_option('blog','read_more_button')):?>
+		<div class="read_more_wrap">
 			<a class="read_more_link <?php echo apply_filters( 'theme_css_class', 'button' );?> small" href="<?php the_permalink(); ?>" rel="nofollow"><span><?php echo wpml_t(THEME_NAME, 'Blog Post Read More Button Text',stripslashes(theme_get_option('blog','read_more_text')));?></span></a>
+		</div>
 	<?php else: ?>
+		<div class="read_more_wrap">
 			<a class="read_more_link" href="<?php the_permalink(); ?>" rel="nofollow"><?php echo wpml_t(THEME_NAME, 'Blog Post Read More Button Text',stripslashes(theme_get_option('blog','read_more_text')));?></a>
+		</div>
 	<?php endif; 
 	endif;
 ?>

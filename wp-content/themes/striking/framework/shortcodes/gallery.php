@@ -2,15 +2,20 @@
 
 // Thank to Justin Tadlock (http://justintadlock.com)
 function theme_shortcode_gallery( $output, $attr ) {
-	global $post;
+	$post = get_post();
 
 	static $cleaner_gallery_instance = 0;
 	$cleaner_gallery_instance++;
 
-	/* We're not worried abut galleries in feeds, so just return the output here. */
-	if ( is_feed() )
-		return $output;
 
+	
+	if ( ! empty( $attr['ids'] ) ) {
+		// 'ids' is explicitly ordered, unless you specify otherwise.
+		if ( empty( $attr['orderby'] ) )
+			$attr['orderby'] = 'post__in';
+		$attr['include'] = $attr['ids'];
+	}
+	
 	/* Orderby. */
 	if ( isset( $attr['orderby'] ) ) {
 		$attr['orderby'] = sanitize_sql_orderby( $attr['orderby'] );
@@ -18,8 +23,8 @@ function theme_shortcode_gallery( $output, $attr ) {
 			unset( $attr['orderby'] );
 	}
 	
-	/* Default gallery settings. */
-	$defaults = array(
+
+	$attr = shortcode_atts( array(
 		'order' => 'ASC',
 		'orderby' => 'menu_order ID',
 		'id' => $post->ID,
@@ -36,41 +41,46 @@ function theme_shortcode_gallery( $output, $attr ) {
 		'exclude' => '',
 		'numberposts' => -1,
 		'offset' => ''
-	);
-	
-	/* Merge the defaults with user input. Make sure $id is an integer. */
-	$attr = shortcode_atts( $defaults, $attr );
+	), $attr );
+
 	extract( $attr );
 
 	$id = intval( $id );
+	if ( 'RAND' == $order )
+		$orderby = 'none';
 
+	
+
+	if ( !empty($include) ) {
+		$_attachments = get_posts( array('include' => $include, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+
+		$attachments = array();
+		foreach ( $_attachments as $key => $val ) {
+			$attachments[$val->ID] = $_attachments[$key];
+		}
+	} elseif ( !empty($exclude) ) {
+		$attachments = get_children( array('post_parent' => $id, 'exclude' => $exclude, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+	} else {
+		$attachments = get_children( array('post_parent' => $id, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby) );
+	}
+
+	if ( empty( $attachments ) )
+		return '';
+
+	if ( is_feed() ) {
+		$output = "\n";
+		foreach ( $attachments as $att_id => $attachment )
+			$output .= wp_get_attachment_link($att_id, $size, true) . "\n";
+		return $output;
+	}
+	
+	/* Properly escape the gallery tags. */
 	if($lightbox_fittoview === 'false'){
 		$lightbox_fittoview = ' data-fittoview="false"';
 	}else{
 		$lightbox_fittoview = ' data-fittoview="true"';
 	}
-
-	/* Arguments for get_children(). */
-	$children = array(
-		'post_parent' => $id,
-		'post_status' => 'inherit',
-		'post_type' => 'attachment',
-		'post_mime_type' => 'image',
-		'order' => $order,
-		'orderby' => $orderby,
-		'exclude' => $exclude,
-		'include' => $include,
-		'numberposts' => $numberposts,
-		'offset' => $offset,
-	);
 	
-	/* Get image attachments. If none, return. */
-	$attachments = get_children( $children );
-
-	if ( empty( $attachments ) )
-		return '';
-
-	/* Properly escape the gallery tags. */
 	$itemtag = tag_escape( $itemtag );
 	$icontag = tag_escape( $icontag );
 	$captiontag = tag_escape( $captiontag );
@@ -125,7 +135,7 @@ function theme_shortcode_gallery( $output, $attr ) {
 		$img_rel = 'group-' . $post->ID;
 		$image  =  '<img src="' . $img_src . '" alt="' . $img_alt . '" class="' . $img_class . ' attachment-' . $size . '" />';
 		
-		if(isset( $attr['link'] ) && 'file' == $attr['link']){
+		if(isset( $attr['link'] ) && 'file' === $attr['link']){
 			$image = '<a href="' . $img_lnk . '" class="lightbox image_icon_zoom gallery-image-wrap" title="' . $lightbox_title . '" rel="' . $img_rel . '" alt=""'.$lightbox_fittoview.'>'.$image.'</a>';
 		}else{
 			$image = '<a href="' . get_attachment_link($id) . '" class="gallery-image-wrap" title="' . $lightbox_title . '" rel="' . $img_rel . '" alt="">'.$image.'</a>';

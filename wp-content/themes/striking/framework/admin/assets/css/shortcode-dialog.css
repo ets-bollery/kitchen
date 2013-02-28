@@ -69,6 +69,7 @@ body {
 	text-decoration: none;
 }
 .shortcode-item-content .description {
+	font-size: 12px;
 	display: none;
 }
 .shortcode-item-content {

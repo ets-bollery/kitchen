@@ -40,7 +40,15 @@
 		}
 	});
 
-	slider.find('.nivo-caption').css('opacity', slideShow['captionOpacity']);
+	slider.find('.nivo-caption').each(function(){
+		jQuery(this).css('opacity', slideShow['captionOpacity']);
+		if(slideShow['controlNav']){
+			jQuery(this).css({
+				paddingRight: slider.find('.nivo-controlNav').width() + 20
+			});
+		}
+	});
+
 	
 	jQuery('<div id="nivo_slider_frame_top"></div>').appendTo(slider);
 	var frame = jQuery('<div id="nivo_slider_frame"></div>').appendTo(slider);
@@ -56,10 +64,10 @@
 		});
 	}
 	if(slideShow['controlNav']){
-		slider.append('<div id="slider_control_bg"></div>');
-		
+		slider.append('<div class="nivo_control_bg"></div>');
+		jQuery('.nivo_control_bg', slider).css('opacity', slideShow['captionOpacity']);
 		if(!slideShow['captions']){
-			jQuery('#slider_control_bg', slider).show();
+			jQuery('.nivo_control_bg', slider).show();
 		}
 	}
 
@@ -72,7 +80,7 @@
 	if(slideShow['controlNavHide']){
 		slider.find('.nivo-controlNav').hide();
 		if(!slideShow['captions']){
-			jQuery('#slider_control_bg', slider).hide();
+			jQuery('.nivo_control_bg', slider).hide();
 		}
 	}
 
@@ -83,7 +91,7 @@
 		if(slideShow['controlNavHide']){
 			slider.find('.nivo-controlNav').show();
 			if(!slideShow['captions']){
-				jQuery('#slider_control_bg', slider).show();
+				jQuery('.nivo_control_bg', slider).show();
 			}
 		}
 	}, function(){
@@ -93,7 +101,7 @@
 		if(slideShow['controlNavHide']){
 			slider.find('.nivo-controlNav').hide();
 			if(!slideShow['captions']){
-				jQuery('#slider_control_bg', slider).hide();
+				jQuery('.nivo_control_bg', slider).hide();
 			}
 		}
 	});	

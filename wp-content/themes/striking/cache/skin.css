@@ -285,6 +285,9 @@ h6 {
 	background-color: #ab5500;
 	color: #ffffff;
 }
+.slider_control_bg {
+	background-color: #ab5500;
+}
 #kwicks li {
 	height: 440px;
 }
@@ -300,17 +303,34 @@ ul.anythingBase li.panel, div.anythingSlider .anythingWindow {
 #anything_slider_wrap, #anything_slider_loading, #anything_slider {
 	height: 393px;
 }
-#kwicks li .kwick_title {
-	font-size: 16px;
-}
 #anything_slider p {
 	font-size: 12px;
 }
-#kwicks li .kwick_detail h3 {
+.anything_caption h3 {
 	font-size: 24px;
 }
-#kwicks li .kwick_desc {
+#kwicks li .kwick_title {
+	font-size: 16px;
+	color: #ffffff;
+	background-color: #000000;
+}
+#kwicks li .kwick_detail h3 {
+	font-size: 24px;
+	color: #ffffff;
+}
+#kwicks li .kwick_detail {
 	font-size: 12px;
+	color: #ffffff;
+	background-color: #000000;
+}
+.anything_caption {
+	background-color: #000000;
+}
+.anything_caption h3 {
+	color: #ffffff !important;
+}
+.anything_caption p {
+	color: #ffffff !important;
 }
 .caption_left, .caption_right {
 	height: 363px;
@@ -386,9 +406,41 @@ ul.mini_tabs li a.current {
 	background-color: #ffffff;
 	color: #333333;
 }
-#page input, #page textarea {
+#page input[type="text"],
+#page input[type="password"],
+#page input[type="email"],
+#page input[type="file"],
+#page input[type="datetime"],
+#page input[type="datetime-local"],
+#page input[type="date"],
+#page input[type="month"],
+#page input[type="time"],
+#page input[type="week"],
+#page input[type="number"],
+#page input[type="url"],
+#page input[type="search"],
+#page input[type="tel"],
+#page input[type="color"],
+#page textarea {
 	color: #333333;
 }
-#footer input, #footer textarea, #footer .text_input, #footer .textarea {
+#footer input[type="text"],
+#footer input[type="password"],
+#footer input[type="email"],
+#footer input[type="file"],
+#footer input[type="datetime"],
+#footer input[type="datetime-local"],
+#footer input[type="date"],
+#footer input[type="month"],
+#footer input[type="time"],
+#footer input[type="week"],
+#footer input[type="number"],
+#footer input[type="url"],
+#footer input[type="search"],
+#footer input[type="tel"],
+#footer input[type="color"],
+#footer textarea, 
+#footer .text_input, 
+#footer .textarea {
 	color:  #ffffff;
 }

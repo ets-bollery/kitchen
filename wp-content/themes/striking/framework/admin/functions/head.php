@@ -44,6 +44,11 @@ function theme_admin_add_script() {
 	wp_enqueue_script('theme-init');
 	
 	add_thickbox();
+	
+	global $wp_version;
+	if(theme_is_options() && version_compare($wp_version, "3.5", '>=')){
+		wp_enqueue_media();
+	}
 }
 
 if(is_admin()){

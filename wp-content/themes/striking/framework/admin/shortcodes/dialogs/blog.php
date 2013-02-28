@@ -189,16 +189,22 @@ return array(
 			"type" => "range"
 		),
 		array(
-			"name" => __("Display Read More button",'striking_admin'),
+			"name" => __("Display Read More",'striking_admin'),
 			"id" => "read_more",
 			"default" => 'default',
 			"type" => "tritoggle"
 		),
 		array(
-			"name" => __("Read More Button Text",'striking_admin'),
+			"name" => __("Read More Text",'striking_admin'),
 			"id" => "read_more_text",
 			"default" => theme_get_option('blog','read_more_text'),
 			"type" => "text",
+		),
+		array(
+			"name" => __("Display Read More as button",'striking_admin'),
+			"id" => "read_more_button",
+			"default" => 'default',
+			"type" => "tritoggle"
 		),
 		array(
 			"name" => __("Display Full Post",'striking_admin'),

@@ -189,7 +189,7 @@ jQuery(document).ready( function($) {
 </style>
 HTML;
 		
-		echo '<input type="text" id="add_custom" name="add_custom" pattern="([a-zA-Z\x7f-\xff][ a-zA-Z0-9_\x7f-\xff]*){0,1}" data-message="'.__('Please input a valid name which starts with a letter, followed by letters, numbers, spaces, or underscores.','striking_front').'" maxlength="20" /><span class="validator-error"></span>';
+		echo '<input type="text" id="add_custom" name="add_custom" pattern="([a-zA-Z\x7f-\xff][ a-zA-Z0-9_\x7f-\xff]*){0,1}" data-message="'.__('Please input a valid name which starts with a letter, followed by letters, numbers, spaces, or underscores.','striking_admin').'" maxlength="20" /><span class="validator-error"></span>';
 		if(!empty($customs)){
 			echo '<div class="custom-title">'.__('Below are the Sizes you have created','striking_admin').'</div>';
 			foreach($customs as $custom){

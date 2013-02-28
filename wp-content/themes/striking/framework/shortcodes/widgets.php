@@ -64,10 +64,11 @@ function theme_shortcode_search($atts,$content = null) {
 	$textcolor = $textcolor?' style="color:'.$textcolor.'"':'';
 	
 	$search_str = __('Search..', 'striking_front');
+	$search_button_str = __('Search', 'striking_front');
 	$button_class = apply_filters( 'theme_css_class', 'button' );
 	$url = home_url();
 	return <<<HTML
-<form method="get" id="searchform" action="{$url}"><input type="text" class="text_input" value="{$search_str}" name="s" id="s" onfocus="if(this.value == '{$search_str}') {this.value = '';}" onblur="if (this.value == '') {this.value = '{$search_str}';}" /><button type="submit" class="{$button_class} gray"{$bgcolor}><span{$textcolor}>{$search_str}</span></button></form>
+<form method="get" id="searchform" action="{$url}"><input type="text" class="text_input" value="{$search_str}" name="s" id="s" onfocus="if(this.value == '{$search_str}') {this.value = '';}" onblur="if (this.value == '') {this.value = '{$search_str}';}" /><button type="submit" class="{$button_class} gray"{$bgcolor}><span{$textcolor}>{$search_button_str}</span></button></form>
 HTML;
 }
 add_shortcode('search', 'theme_shortcode_search');
@@ -218,6 +219,7 @@ function theme_shortcode_contact_info($atts) {
 		'color' => '',
 		'phone' => '',
 		'cellphone' => '',
+		'fax' => '',
 		'email' => '',
 		'link' => '',
 		'address' => '',

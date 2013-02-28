@@ -455,7 +455,7 @@ function theme_video_youtube($atts, $content=null) {
 	}
 
 	if (!empty($clip_id)){
-		return "<div class='video_frame' style='height:{$height}px;width:{$width}px'><iframe class='youtube' style='height:100%;width:100%' src='http://www.youtube.com/embed/{$clip_id}?autohide={$autohide}{$autoplay}&amp;controls={$controls}&amp;disablekb={$disablekb}&amp;fs={$fs}&amp;start={$start}&amp;loop={$loop}&amp;rel={$rel}&amp;showinfo={$showinfo}&amp;theme={$theme}&amp;modestbranding={$modestbranding}&amp;wmode=transparent' width='100%' height='100%' frameborder='0'></iframe></div>";
+		return "<div class='video_frame' style='height:{$height}px;width:{$width}px'><iframe class='youtube' style='height:100%;width:100%' src='http://www.youtube.com/embed/{$clip_id}?enablejsapi=1&amp;autohide={$autohide}{$autoplay}&amp;controls={$controls}&amp;disablekb={$disablekb}&amp;fs={$fs}&amp;start={$start}&amp;loop={$loop}&amp;rel={$rel}&amp;showinfo={$showinfo}&amp;theme={$theme}&amp;modestbranding={$modestbranding}&amp;wmode=transparent' width='100%' height='100%' frameborder='0'></iframe></div>";
 	}
 }
 
@@ -599,13 +599,12 @@ function theme_audio($atts){
 	$uri = THEME_URI;
 	return <<<HTML
 [raw]<div class="audio_frame">
-<audio id="html5_audio_{$id}" width="{$width}" height="{$height}" {$poster_attribute} controls="controls" {$preload_attribute} {$autoplay_attribute}>
+<audio id="html5_audio_{$id}" width="{$width}" height="{$height}" controls="controls" {$preload_attribute} {$autoplay_attribute}>
     {$mp3_source}
 	{$ogg_source}
 	<object width="{$width}" height="{$height}" type="application/x-shockwave-flash" data="{$uri}/mediaelement/flashmediaelement.swf">
 		<param name="movie" value="{$uri}/mediaelement/flashmediaelement.swf" />
 		<param name="flashvars" value="controls=true&amp;file={$flash_src}" />
-		{$image_fallback}
 	</object>
 </audio>
 </div>

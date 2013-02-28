@@ -37,7 +37,7 @@ class Theme_Options_Page_Portfolio extends Theme_Options_Page_With_Tabs {
 						"type" => "toggle"
 					),
 					array(
-						"name" => __("Display More Button",'striking_admin'),
+						"name" => __("Display Read More",'striking_admin'),
 						"desc" => "",
 						"id" => "display_more_button",
 						"default" => true,
@@ -70,7 +70,7 @@ class Theme_Options_Page_Portfolio extends Theme_Options_Page_With_Tabs {
 				"name" => __("Read More",'striking_admin'),
 				"options" => array(
 					array(
-						"name" => __("More Button Text",'striking_admin'),
+						"name" => __("Read More Text",'striking_admin'),
 						"desc" => "",
 						"size" => 30,
 						"id" => "more_button_text",
@@ -78,7 +78,7 @@ class Theme_Options_Page_Portfolio extends Theme_Options_Page_With_Tabs {
 						"type" => "text",
 					),
 					array(
-						"name" => __("Display as button",'striking_admin'),
+						"name" => __("Display Read More as button",'striking_admin'),
 						"desc" => "",
 						"id" => "read_more_button",
 						"default" => false,
@@ -403,9 +403,24 @@ class Theme_Options_Page_Portfolio extends Theme_Options_Page_With_Tabs {
 
 	function _option_permalink_slug_process($option,$value) {
 		if(theme_get_option('portfolio','permalink_slug') != $value){
-			theme_ajax_flush_rewrite_rules();
+			$this->_ajax_flush_rewrite_rules();
 		}
 		
 		return $value;
+	}
+
+	function _ajax_flush_rewrite_rules(){
+?>
+<script type="text/javascript" >
+jQuery(document).ready(function($) {
+	var data = {
+		action: 'theme-flush-rewrite-rules'
+	};
+	jQuery.post(ajaxurl, data, function(response) {
+		
+	});
+});
+</script>
+<?php
 	}
 }

@@ -18,8 +18,9 @@ function theme_section_portfolio_list($options){
 		'titlelinkable' => 'false',
 		'desc' => '',
 		'desc_length'=>'default',
-		'more' => '',
+		'more' => 'default',
 		'moretext' => '',
+		'morebutton' => 'default',
 		'height' => '',
 		"ajax" => 'false',
 		'current' => '',
@@ -192,23 +193,21 @@ function theme_section_portfolio_list($options){
 			$desc = 'true';
 		}
 	}
-
-	switch($more){
-		case '':
-			if( theme_get_option('portfolio','display_more_button') ){
-				$more = true;
-			}else{
-				$more = false;
-			}
-			break;
-		case 'false':
-			$more = false;
-			break;
-		case 'true':
-		default:
-			$more = true;
-			break;
+	if($more == 'default'){
+		$more =  theme_get_option('portfolio','display_more_button');
+	}elseif($more == 'true'){
+		$more = true;
+	}else{
+		$more = false;
 	}
+	if($morebutton == 'default'){
+		$morebutton =  theme_get_option('portfolio','read_more_button');
+	}elseif($morebutton == 'true'){
+		$morebutton = true;
+	}else{
+		$morebutton = false;
+	}
+	
 	while($r->have_posts()) {
 		$r->the_post();
 		$terms = get_the_terms(get_the_id(), 'portfolio_category');
@@ -421,6 +420,7 @@ function theme_section_portfolio_list($options){
 			}
 		}
 		
+
 		if(theme_is_enabled(get_post_meta(get_the_id(), '_more', true), $more)){
 			$more_link = theme_get_superlink(get_post_meta(get_the_id(), '_more_link', true), get_permalink());
 			$more_link_target = get_post_meta(get_the_ID(), '_more_link_target', true);
@@ -428,7 +428,7 @@ function theme_section_portfolio_list($options){
 			if($moretext == ''){
 				$moretext = wpml_t(THEME_NAME , 'Portfolio More Button Text',theme_get_option('portfolio','more_button_text'));
 			}
-			if(theme_get_option('portfolio','read_more_button')){
+			if($morebutton){
 				$output .= '<div class="portfolio_more_button"><a href="'.$more_link.'" class="'.apply_filters( 'theme_css_class', 'button' ).'" target="'.$more_link_target.'"><span>'.$moretext.'</span></a></div>';
 			}else{
 				$output .= '<div class="portfolio_more_button"><a href="'.$more_link.'" target="'.$more_link_target.'"><span>'.$moretext.'</span></a></div>';

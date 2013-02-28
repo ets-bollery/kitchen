@@ -21,7 +21,7 @@ return array(
 			"type" => "select",
 		),
 		array (
-			"name" => __("Height (optional)",'striking_admin'),
+			"name" => __("Thumbnail Height (optional)",'striking_admin'),
 			"desc" => __("The height of thumbnail image.",'striking_admin'),
 			"id" => "height",
 			"default" => 0,
@@ -32,7 +32,7 @@ return array(
 			"type" => "range"
 		),
 		array(
-			"name" => __("Layout",'striking_admin'),
+			"name" => __("Page Layout",'striking_admin'),
 			"id" => "layout",
 			"default" => 'full',
 			"options" => array(
@@ -124,20 +124,20 @@ return array(
 		array(
 			"name" => __("Title Linkable",'striking_admin'),
 			"id" => "titleLinkable",
-			"desc" => __("If the option is on, the title of portfolio will link to portfolio single page.",'striking_admin'),
+			"desc" => __("If the option is on, the title of portfolio will link to portfolio single page posts.",'striking_admin'),
 			"default" => false,
 			"type" => "toggle"
 		),
 		array(
-			"name" => __("Display Description",'striking_admin'),
+			"name" => __("Display Portfolio Description",'striking_admin'),
 			"id" => "desc",
-			"desc" => __("If the option is on, it will display description of portfolio.",'striking_admin'),
+			"desc" => __("If the option is <em>ON,</em> it will display the Portfolio Excerpt of each portfolio item. &nbsp;&nbsp;If the Excerpt field is empty, it will fallback to/display instead the content of the main wp editor field.",'striking_admin'),
 			"default" => true,
 			"type" => "toggle"
 		),
 		array(
-			"name" => __("Length of Description",'striking_admin'),
-			"desc" => __("It will not work with advance description.",'striking_admin'),
+			"name" => __("Description Length",'striking_admin'),
+			"desc" => __("You can set the number of characters -> this includes blank spaces, that you will show in the portfolio item description for each item appearing in your portfolio list.&nbsp;&nbsp;The maximum number of characters is 200.&nbsp;&nbsp;Please note that this setting does not work if you have the <b>Enable Shortcode Support in Description</b> setting <em>ON</em>.",'striking_admin'),
 			"id" => "desc_length",
 			"default" => '0',
 			"min" => 0,
@@ -146,29 +146,37 @@ return array(
 			"type" => "range"
 		),
 		array(
-			"name" => __("Advance Description",'striking_admin'),
+			"name" => __("Enable Shortcode Support in Description Field",'striking_admin'),
 			"id" => "advanceDesc",
-			"desc" => __("If the option is on, it will add shortcode support for description.",'striking_admin'),
+			"desc" => __("If the option is <em>ON</em>, one can use Striking shortcodes in the Excerpt and post editor fields and the shortcodes will be work for the description display.  If the setting is <em>OFF</em>, simple html tags will work, but any striking shortcodes such as the typography shortcodes, will not work.",'striking_admin'),
 			"default" => false,
 			"type" => "toggle"
 		),
 		array(
-			"name" => __("Display More Button",'striking_admin'),
+			"name" => __("Display <b>Read More</b> Button",'striking_admin'),
 			"id" => "more",
-			"desc" => __("If the option is on, it will display more button.",'striking_admin'),
-			"default" => true,
-			"type" => "toggle"
+			"desc" => __("If the option is <b>ON</b>, the Read More button will display so that a viewer can go to the portfolio page.",'striking_admin'),
+			"default" => 'default',
+			"type" => "tritoggle"
 		),
 		array(
-			"name" => __("More Button Text",'striking_admin'),
+			"name" => __("Read More Button Text",'striking_admin'),
 			"id" => "moreText",
+			"desc" => __("If one has set the Read More button to display above, then with this setting one can set the text for the button to what is desired.",'striking_admin'),
 			"default" => theme_get_option('portfolio','more_button_text'),
 			"type" => "text",
 		),
 		array(
-			"name" => __("Group",'striking_admin'),
+			"name" => __("Display Read More as button",'striking_admin'),
+			"id" => "moreButton",
+			"desc" => __("Normally, if you have enabled the ability to Read More above, it displays as text in a format similar to how a tag displays, but if this setting is toggled <em>ON</em> then the Read More button and the text set in the above settings will display within a button.",'striking_admin'),
+			"default" => 'default',
+			"type" => "tritoggle"
+		),
+		array(
+			"name" => __("Lightbox Grouping of Featured Images",'striking_admin'),
 			"id" => "group",
-			"desc" => __("If the option is on, the lightbox will display left and right arrow.",'striking_admin'),
+			"desc" => __("If the option is <em>ON</em>, a user will be able to transition from one portfolio thumbnail to the next without having to click on each portfolio list item -> the lightbox will display left and right arrows so that the viewer can easily transition between the images in the portfolio list.",'striking_admin'),
 			"default" => true,
 			"type" => "toggle"
 		),

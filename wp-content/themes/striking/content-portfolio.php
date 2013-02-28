@@ -8,12 +8,12 @@
 $post_id = get_queried_object_id();
 $layout = theme_get_inherit_option($post_id, '_layout', 'portfolio','layout');
 $effect = theme_get_option('portfolio','sinle_effect');
-
+$featured_image = theme_get_inherit_option($post_id, '_featured_image', 'portfolio','featured_image');
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('entry content'); ?>>
-<?php if(theme_get_option('portfolio','featured_image')):?>
+<?php if($featured_image):?>
 	<header>
-		<?php echo theme_generator('portfolio_featured_image',$layout,$effect); ?>
+		<?php echo theme_generator('portfolio_featured_image',$layout,$effect,true); ?>
 	</header>
 <?php endif; ?>
 	<?php the_content(); ?>

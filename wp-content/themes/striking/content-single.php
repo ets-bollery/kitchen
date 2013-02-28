@@ -14,7 +14,7 @@ $layout = theme_get_inherit_option($post_id, '_layout', 'blog','single_layout');
 	<header>
 <?php
 if(theme_is_enabled(get_post_meta($post->ID, '_featured_image', true), theme_get_option('blog','featured_image')) && $featured_image_type!=='below'):
-echo theme_generator('blog_featured_image',$featured_image_type,$layout,'',false,$effect);
+echo theme_generator('blog_featured_image',$featured_image_type,$layout,'',false,$effect,true);
 endif; ?>
 <?php if(!theme_get_option('blog','show_in_header')):?>
 		<div class="entry_info">

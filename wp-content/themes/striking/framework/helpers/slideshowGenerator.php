@@ -171,6 +171,11 @@ class slideshowGenerator {
 						$link_target = get_post_meta(get_the_ID(), '_link_target', true);
 
 						$link_target = $link_target?$link_target:'_self';
+						$caption = get_post_meta(get_the_ID(), '_caption', true);
+						if(empty($caption)){
+							$caption = get_the_title();
+						}
+
 						$images[] = array(
 							'source' => array(
 								'type'=>'attachment_id',
@@ -178,7 +183,7 @@ class slideshowGenerator {
 							),
 							'type' => 'slideshow',
 							'post_id'=> get_the_ID(),
-							'title' => get_the_title(),
+							'title' => $caption,
 							'desc'  => get_post_meta(get_the_ID(), '_description', true),
 							'link' => $link,
 							'target' => $link_target

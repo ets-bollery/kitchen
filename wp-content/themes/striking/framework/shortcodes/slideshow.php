@@ -114,9 +114,9 @@ function theme_slideshow_nivo($atts, $content = null){
 				$content .= '<a href="'.$image['link'].'" target="'.$image['target'].'">';
 			}
 			if($caption == 'true'){
-				$content .= '<img src="' . theme_get_image_src($image['source'], array($width, $height))  . '" width="'.$width.'" height="'.$height.'" title="'.$image['title'].'" alt="" />';
+				$content .= '<img src="' . theme_get_image_src($image['source'], array($width, $height))  . '" width="'.$width.'" height="'.$height.'" title="'.esc_attr($image['title']).'" alt="'.esc_attr($image['title']).'" />';
 			}else{
-				$content .= '<img src="' . theme_get_image_src($image['source'], array($width, $height))  . '" width="'.$width.'" height="'.$height.'" title="" alt="" />';
+				$content .= '<img src="' . theme_get_image_src($image['source'], array($width, $height))  . '" width="'.$width.'" height="'.$height.'" title="" alt="'.esc_attr($image['title']).'" />';
 			}
 			if($image['link'] != false){
 				$content .= '</a>';
@@ -145,6 +145,14 @@ jQuery(document).ready(function($) {
         pauseOnHover:{$pauseonhover}, 
         manualAdvance:false
     });
+	slider.find('.nivo-caption').each(function(){
+		jQuery(this).css('opacity', {$captionopacity});
+		if({$controlnav}){
+			jQuery(this).css({
+				paddingRight: slider.find('.nivo-controlNav').width() + 20
+			});
+		}
+	});
 	slider.find('.nivo-caption').css('opacity', {$captionopacity});
 
 	if({$directionnavhide}){
@@ -294,9 +302,9 @@ function theme_slideshow_anything($atts, $content = null){
 					$content .=  '</div>';
 					$content .=  '<div class="anything_sidebar_image">';
 					if($image['link'] != false){
-						$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'"><img class="slideimage" src="' . $image_src.'" width="'.$sidebar_image_width.'" height="'.$height.'" alt="" /></a>';
+						$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'"><img class="slideimage" src="' . $image_src.'" width="'.$sidebar_image_width.'" height="'.$height.'" alt="'.esc_attr($image['title']).'" /></a>';
 					}else{
-						$content .=  '<img class="slideimage" src="' . $image_src .'" width="'.$sidebar_image_width.'" height="'.$height.'" alt="" />';
+						$content .=  '<img class="slideimage" src="' . $image_src .'" width="'.$sidebar_image_width.'" height="'.$height.'" alt="'.esc_attr($image['title']).'" />';
 					}
 					$content .=  '</div>';
 					$content .=  '</div>';
@@ -314,26 +322,30 @@ function theme_slideshow_anything($atts, $content = null){
 					}else{
 						$caption_position = get_post_meta($image['post_id'], '_image_caption_position', true);
 					}
+					$caption_bg = get_post_meta($image['post_id'], '_anything_caption_bg', true);
+					if($caption_bg != ''){
+						$caption_bg = ';background-color:'.$caption_bg.'"';
+					}
 					if($image['link'] != false){
 						if($caption_position != '' && $caption_position !='disable'){
-							$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'" class="anything_caption caption_'.$caption_position.'" style="opacity:'.$captionopacity.'">';
+							$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'" class="anything_caption caption_'.$caption_position.'" style="opacity:'.$captionopacity.$caption_bg.'">';
 							$content .=  '<h3>'.$image['title'].'</h3>';
 							if($image['desc']){
 								$content .=  '<p>'.$image['desc'].'</p>';
 							}
 							$content .=  '</a>';
 						}
-						$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'"><img class="slideimage" src="' . $image_src .'" alt="" /></a>';
+						$content .=  '<a href="'.$image['link'].'" target="'.$image['target'].'"><img class="slideimage" src="' . $image_src .'" alt="'.$image['title'].'" /></a>';
 					}else{
 						if($caption_position != '' && $caption_position !='disable'){
-							$content .=  '<div class="anything_caption caption_'.$caption_position.'" style="opacity:'.$captionopacity.'">';
+							$content .=  '<div class="anything_caption caption_'.$caption_position.'" style="opacity:'.$captionopacity.$caption_bg.'">';
 							$content .=  '<h3>'.$image['title'].'</h3>';
 							if($image['desc']){
 								$content .=  '<p>'.$image['desc'].'</p>';
 							}
 							$content .=  '</div>';
 						}
-						$content .= '<img class="slideimage" src="' . $image_src .'" alt="" />';
+						$content .= '<img class="slideimage" src="' . $image_src .'" alt="'.$image['title'].'" />';
 					}
 					break;
 			}

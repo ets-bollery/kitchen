@@ -17,10 +17,13 @@ class Theme_Metabox {
 
 		add_action('save_post', array(&$this, '_save'));
 		add_action('admin_menu', array(&$this, '_init'));
-		foreach($this->config['post_types'] as $post_type){
-			$id = $this->slug;
-			add_filter( "postbox_classes_{$post_type}_{$id}", array(&$this, '_metabox_classes') );
+		if(is_array($this->config['post_types']) && !empty($this->config['post_types'])){
+			foreach($this->config['post_types'] as $post_type){
+				$id = $this->slug;
+				add_filter( "postbox_classes_{$post_type}_{$id}", array(&$this, '_metabox_classes') );
+			}
 		}
+		
 	}
 
 	function _metabox_classes($classes){
@@ -92,7 +95,7 @@ class Theme_Metabox {
 			echo '<li class="meta-box-item"'.$group.'>';
 			echo '<div class="meta-box-item-title"><h4>' . $option['name'] . '</h4>';
 			if (isset($option['desc'])) {
-				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><p class="description">' . $option['desc'] . '</p>';
+				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><div class="description">' . $option['desc'] . '</div>';
 			} else {
 				echo '</div>';
 			}
@@ -117,7 +120,7 @@ class Theme_Metabox {
 			echo '<div class="meta-box-item-title"><h4>' . $item['name'] . '</h4></div>';
 		}
 		if (isset($item['desc'])) {
-			echo '<p>' . $item['desc'] . '</p>';
+			echo '<div class="description">' . $item['desc'] . '</div>';
 		}
 		echo '</li>';
 	}
@@ -153,7 +156,7 @@ class Theme_Metabox {
 			echo '<li class="meta-box-item"'.$group.'>';
 			echo '<div class="meta-box-item-title"><h4>' . $item['name'] . '</h4>';
 			if (!empty($item['desc'])) {
-				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><p class="description">' . $item['desc'] . '</p>';
+				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><div class="description">' . $item['desc'] . '</div>';
 			} else {
 				echo '</div>';
 			}
@@ -361,7 +364,7 @@ class Theme_Metabox_With_Tabs extends Theme_Metabox {
 			echo '<li class="meta-box-item"'.$group.'>';
 			echo '<div class="meta-box-item-title"><h4>' . $option['name'] . '</h4>';
 			if (isset($option['desc'])) {
-				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><p class="description">' . $option['desc'] . '</p>';
+				echo '<a class="meta-box-item-switch" href="">[+] more info</a></div><div class="description">' . $option['desc'] . '</div>';
 			} else {
 				echo '</div>';
 			}

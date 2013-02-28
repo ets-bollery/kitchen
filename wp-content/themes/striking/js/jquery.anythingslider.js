@@ -1,5 +1,5 @@
 /*!
-	AnythingSlider v1.8.7
+	AnythingSlider v1.8.13
 	Original by Chris Coyier: http://css-tricks.com
 	Get the latest version: https://github.com/CSS-Tricks/AnythingSlider
 
@@ -151,8 +151,8 @@
 				}
 			});
 
-			// If a hash can not be used to trigger the plugin, then go to start panel
-			base.currentPage = base.gotoHash() || o.startPanel || 1;
+			// If a hash can not be used to trigger the plugin, then go to start panel - see issue #432
+			base.currentPage = ((o.hashTags) ? base.gotoHash() : '') || o.startPanel || 1;
 			base.gotoPage(base.currentPage, false, null, -1);
 
 			// Binds events
@@ -453,7 +453,7 @@
 				pw = (o.showMultiple > 1) ? base.width || base.$window.width()/o.showMultiple : base.$window.width(),
 				winw = base.$win.width();
 			if (o.expand){
-				w = base.$outer.css('height','').width() - base.outerPad[0];
+				w = base.$outer.width() - base.outerPad[0];
 				base.height = h = base.$outer.height() - base.outerPad[1];
 				base.$wrapper.add(base.$window).add(base.$items).css({ width: w, height: h });
 				base.width = pw = (o.showMultiple > 1) ? w/o.showMultiple : w;

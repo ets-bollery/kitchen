@@ -34,6 +34,14 @@ function theme_save_skin_style() {
 	}
 	return false;
 }
+
+function theme_check_image_folder(){
+	if(is_multisite()){
+		if(!is_dir(THEME_CACHE_IMAGES_DIR)){
+			mkdir(THEME_CACHE_IMAGES_DIR);
+		}
+	}
+}
 /**
  * Whether the current request is in theme options pages
  * 

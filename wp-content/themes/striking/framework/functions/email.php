@@ -36,8 +36,8 @@ if($error == false){
 	$body .= __('Name: ','striking_front').$name."\n\n";
 	$body .= __('Email: ','striking_front').$email."\n\n";
 	$body .= __('Messages: ','striking_front').$content;
-	$headers = "From: $name <$email>\r\n";
-	$headers .= "Reply-To: $email\r\n";
+	$headers = "From: \"{$name}\" <{$email}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
+	$headers .= "Reply-To: $email\n";
 	
 	
 	if(wp_mail($to, $subject, $body, $headers)){

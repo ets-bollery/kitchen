@@ -8,6 +8,6 @@ function theme_mce_escape($text) {
 		return esc_js($text);
 }
 $strings = 'tinyMCE.addI18n("' . $mce_locale . '.shortcode_generator",{
-desc:"' . theme_mce_escape( __('Insert Shortcode','striking_front') ) . '"
+desc:"' . theme_mce_escape( __('Insert Shortcode','striking_admin') ) . '"
 });
 ';

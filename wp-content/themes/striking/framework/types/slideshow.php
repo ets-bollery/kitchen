@@ -9,8 +9,8 @@ class Theme_Post_Type_Slideshow {
 	}
 
 	function init(){
+		$this->register();
 		add_action( 'template_redirect', array(&$this, 'context_fixer') );
-		add_action('init', array(&$this, 'register'),0);
 	}
 
 	function register(){

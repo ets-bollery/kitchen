@@ -89,20 +89,6 @@ class Theme_Options_Page_Color extends Theme_Options_Page_With_Tabs {
 						"type" => "color"
 					),
 					array(
-						"name" => __("Top Level Current Menu Color",'striking_admin'),
-						"desc" => "",
-						"id" => "menu_top_current",
-						"default" => "#000000",
-						"type" => "color"
-					),
-					array(
-						"name" => __("Top Level Current Menu Background Color",'striking_admin'),
-						"desc" => "",
-						"id" => "menu_top_current_background",
-						"default" => "",
-						"type" => "color"
-					),
-					array(
 						"name" => __("Top Level Menu Hover Color",'striking_admin'),
 						"desc" => "",
 						"id" => "menu_top_active",
@@ -113,6 +99,20 @@ class Theme_Options_Page_Color extends Theme_Options_Page_With_Tabs {
 						"name" => __("Top Level Menu Hover Background Color",'striking_admin'),
 						"desc" => "",
 						"id" => "menu_top_active_background",
+						"default" => "",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Top Level Current Menu Color",'striking_admin'),
+						"desc" => "",
+						"id" => "menu_top_current",
+						"default" => "#000000",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Top Level Current Menu Background Color",'striking_admin'),
+						"desc" => "",
+						"id" => "menu_top_current_background",
 						"default" => "",
 						"type" => "color"
 					),
@@ -207,9 +207,65 @@ class Theme_Options_Page_Color extends Theme_Options_Page_With_Tabs {
 						"type" => "color"
 					),
 					array(
+						"name" => __("Anything Slider Caption Background Color",'striking_admin'),
+						"desc" => "",
+						"id" => "anything_caption_bg",
+						"default" => "#000000",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Anything Slider Caption Text Color",'striking_admin'),
+						"desc" => "",
+						"id" => "anything_caption",
+						"default" => "#ffffff",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Anything Slider Caption Header Text Color",'striking_admin'),
+						"desc" => "",
+						"id" => "anything_caption_header",
+						"default" => "#ffffff",
+						"type" => "color"
+					),
+					array(
 						"name" => __("Anything Slider Background Color",'striking_admin'),
 						"desc" => "",
 						"id" => "anything_bg",
+						"default" => "#ffffff",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Accordion Slider Caption Background Color",'striking_admin'),
+						"desc" => "",
+						"id" => "accordion_caption_bg",
+						"default" => "#000000",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Accordion Slider Caption Text Color",'striking_admin'),
+						"desc" => "",
+						"id" => "accordion_caption",
+						"default" => "#ffffff",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Accordion Slider Detail Background Color",'striking_admin'),
+						"desc" => "",
+						"id" => "accordion_detail_bg",
+						"default" => "#000000",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Accordion Slider Detail Header Text Color",'striking_admin'),
+						"desc" => "",
+						"id" => "accordion_detail_header",
+						"default" => "#ffffff",
+						"type" => "color"
+					),
+					array(
+						"name" => __("Accordion Slider Detail Text Color",'striking_admin'),
+						"desc" => "",
+						"id" => "accordion_detail",
 						"default" => "#ffffff",
 						"type" => "color"
 					),

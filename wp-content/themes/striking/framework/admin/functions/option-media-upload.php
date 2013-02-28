@@ -15,7 +15,7 @@ function option_type_url_form_media(){
 	<table class="describe"><tbody>
 		<tr>
 			<th valign="top" scope="row" class="label" style="width:130px;">
-				<span class="alignleft"><label for="src">' . __('URL','striking_front') . '</label></span>
+				<span class="alignleft"><label for="src">' . __('URL','striking_admin') . '</label></span>
 				<span class="alignright"><abbr id="status_img" title="required" class="required">*</abbr></span>
 			</th>
 			<td class="field"><input id="src" name="src" value="" type="text" aria-required="true" onblur="addExtImage.getImageData()" /></td>
@@ -23,7 +23,7 @@ function option_type_url_form_media(){
 
 		<tr>
 			<th valign="top" scope="row" class="label">
-				<span class="alignleft"><label for="title">' . __('Title','striking_front') . '</label></span>
+				<span class="alignleft"><label for="title">' . __('Title','striking_admin') . '</label></span>
 				<span class="alignright"><abbr title="required" class="required">*</abbr></span>
 			</th>
 			<td class="field"><input id="title" name="title" value="" type="text" aria-required="true" /></td>

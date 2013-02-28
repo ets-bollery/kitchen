@@ -32,8 +32,6 @@ HTML;
 		$height = theme_get_option('slideshow','anything_height');
 		
 		foreach($images as $image) {
-			$stop = '';
-			$click_stop = '';
 			$bg = '';
 			if($image['type'] !== 'slideshow'){
 				$type = 'image';
@@ -42,17 +40,11 @@ HTML;
 				if($bg != ''){
 					$bg = ' style="background-color:'.$bg.'"';
 				}
-				if(theme_is_enabled(get_post_meta($image['post_id'], '_anything_stop', true))){
-					$stop = ' stoped';
-				}
-				if(theme_is_enabled(get_post_meta($image['post_id'], '_anything_click_stop', true))){
-					$click_stop = ' click_stoped';
-				}
 				
 				$type = get_post_meta($image['post_id'], '_anything_type', true);
 			}
 			
-			$output .= "\n<li class='panel".$stop.$click_stop."'".$bg.">\n";
+			$output .= "\n<li class='panel'".$bg.">\n";
 			
 			switch($type){
 				case 'sidebar':
@@ -85,9 +77,14 @@ HTML;
 					}else{
 						$caption_position = get_post_meta($image['post_id'], '_image_caption_position', true);
 					}
+					$caption_bg = get_post_meta($image['post_id'], '_anything_caption_bg', true);
+					if($caption_bg != ''){
+						$caption_bg = ' style="background-color:'.$caption_bg.'"';
+					}
+
 					if($image['link'] != false){
 						if($caption_position != '' && $caption_position !='disable'){
-							$output .=  '<a href="'.$image['link'].'" target="'.$image['target'].'" class="anything_caption caption_'.$caption_position.'">';
+							$output .=  '<a href="'.$image['link'].'" target="'.$image['target'].'" class="anything_caption caption_'.$caption_position.'"'.$caption_bg.'>';
 							$output .=  '<h3>'.$image['title'].'</h3>';
 							if($image['desc']) $output .= '<p>'.$image['desc'].'</p>';
 							$output .=  '</a>';
@@ -95,7 +92,7 @@ HTML;
 						$output .=  '<a href="'.$image['link'].'" target="'.$image['target'].'"><img class="slideimage" src="' . $image_src.'" width="960" height="'.$height.'" alt="'.$image['title'].'" /></a>';
 					}else{
 						if($caption_position != '' && $caption_position !='disable'){
-							$output .=  '<div class="anything_caption caption_'.$caption_position.'">';
+							$output .=  '<div class="anything_caption caption_'.$caption_position.'"'.$caption_bg.'>';
 							$output .=  '<h3>'.$image['title'].'</h3>';
 							if($image['desc']) $output .= '<p>'.$image['desc'].'</p>';
 							$output .=  '</div>';
@@ -143,6 +140,7 @@ HTML;
 			'animationTime' => theme_get_option('slideshow', 'anything_animationTime'),
 			
 			'resumeOnVideoEnd' => theme_get_option('slideshow', 'anything_resumeOnVideoEnd'),
+			'resumeOnVisible' => theme_get_option('slideshow', 'anything_resumeOnVisible'),
 			'captionOpacity' => theme_get_option('slideshow', 'anything_captionOpacity'),
 		);
 		

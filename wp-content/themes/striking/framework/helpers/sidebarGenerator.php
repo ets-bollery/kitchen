@@ -19,7 +19,6 @@ class sidebarGenerator {
 			__('Fifth Footer Widget Area','striking_admin'),
 			__('Sixth Footer Widget Area','striking_admin'),
 		);
-
 	}
 
 	function register_sidebar(){
@@ -46,7 +45,7 @@ class sidebarGenerator {
 			));
 		}
 		
-		$top_area_type = theme_get_option('general','top_area_type');
+		$top_area_type = theme_get_option_from_db('general','top_area_type');
 		if($top_area_type == 'widget'){
 			register_sidebar(array(
 				'name' =>  __('Header Widget Area','striking_admin'),
@@ -57,7 +56,7 @@ class sidebarGenerator {
 				'after_title' => '',
 			));
 		}
-		$footer_right_area_type = theme_get_option('footer','footer_right_area_type');
+		$footer_right_area_type = theme_get_option_from_db('footer','footer_right_area_type');
 		if($footer_right_area_type == 'widget'){
 			register_sidebar(array(
 				'name' =>  __('Sub Footer Widget Area','striking_admin'),
@@ -70,7 +69,7 @@ class sidebarGenerator {
 		}
 		
 		//register custom sidebars
-		$custom_sidebars = theme_get_option('sidebar','sidebars');
+		$custom_sidebars = theme_get_option_from_db('sidebar','sidebars');
 		if(!empty($custom_sidebars)){
 			$custom_sidebar_names = explode(',',$custom_sidebars);
 			foreach ($custom_sidebar_names as $name){
@@ -157,10 +156,6 @@ class sidebarGenerator {
 		$this->footer_sidebar_count++;
 	}
 }
-global $_sidebarGenerator;
-$_sidebarGenerator = new sidebarGenerator;
-
-add_action('widgets_init', array($_sidebarGenerator,'register_sidebar'));
 
 function sidebar_generator($function){
 	global $_sidebarGenerator;
