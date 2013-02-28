@@ -3617,3 +3617,8 @@ right_sidebar #sidebar {width:180px;}
 .right_sidebar #main {width:750px;}
 .right_sidebar #main .content {width: 750px;}
 .right_sidebar .four_fifth {width:70%; margin-left:35px;}
+.right_sidebar #sidebar {
+	float:right;
+	width:180px;
+	margin: 0 0 0.5em 30px;
+}
