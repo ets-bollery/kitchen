@@ -3622,3 +3622,7 @@ right_sidebar #sidebar {width:180px;}
 	width:180px;
 	margin: 0 0 0.5em 30px;
 }
+
+#logo, #logo_text {
+	left: -42px;
+}
